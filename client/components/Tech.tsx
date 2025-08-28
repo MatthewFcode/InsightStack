@@ -11,6 +11,10 @@ function Tech() {
   const addMutation = useAddPosts()
   const updatePosts = useUpdatePosts()
   const deleteMutation = useDeletePosts()
+  // state for the topic field
+  const [topicInput, setTopicInput] = useState('')
+  // state for the post details field
+  const [detailsInput, setDetailsInput] = useState('')
 
   const { data, isLoading, isError } = useGetPosts()
 
@@ -18,12 +22,9 @@ function Tech() {
     return <LoadingState />
   }
   if (isError) {
-    return <div></div>
+    return <div>Error loading posts</div>
   }
-  // state for the topic field
-  const [topicInput, setTopicInput] = useState('')
-  // state for the post details field
-  const [detailsInput, setDetailsInput] = useState('')
+
   // post button logic
   const handlePost = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -35,6 +36,7 @@ function Tech() {
     setDetailsInput('')
   }
 
+  // handling the change for the value of the topic and details text forms
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     if (name === 'topic') {
@@ -42,6 +44,11 @@ function Tech() {
     } else if (name === 'details') {
       setDetailsInput(value)
     }
+  }
+
+  // delete button logic - simplified since React Query handles errors
+  const handleDelete = async (id: number) => {
+    await deleteMutation.mutateAsync(id)
   }
 
   return (
@@ -57,7 +64,7 @@ function Tech() {
             name="topic"
             value={topicInput}
             onChange={handleChange}
-            placeholder="Whats you're topic?"
+            placeholder="What's your topic?"
           />
           <label htmlFor="Details">Details</label>
           <input
@@ -65,10 +72,39 @@ function Tech() {
             name="details"
             value={detailsInput}
             onChange={handleChange}
-            placeholder="What are you're tips?"
+            placeholder="What are your tips?"
           />
-          <button onClick={handlePost}>Post</button>
+          <button onClick={handlePost} disabled={addMutation.isPending}>
+            {addMutation.isPending ? 'Posting...' : 'Post'}
+          </button>
         </form>
+      </div>
+      {/* Display posts */}
+      <div>
+        <h2>Posts</h2>
+        {data && data.length > 0 ? (
+          data.map((post) => (
+            <div
+              key={post.id}
+              style={{
+                border: '1px solid #ccc',
+                margin: '10px 0',
+                padding: '10px',
+              }}
+            >
+              <h3>{post.topic}</h3>
+              <p>{post.postDetails}</p>
+              <button
+                onClick={() => handleDelete(post.id)}
+                disabled={deleteMutation.isPending}
+              >
+                {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No posts yet. Create your first post above!</p>
+        )}
       </div>
     </>
   )

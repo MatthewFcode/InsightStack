@@ -6,7 +6,7 @@ import {
   MutationFunction,
 } from '@tanstack/react-query'
 
-export async function useGetPosts() {
+export function useGetPosts() {
   // getting all of the data from my api route and stroing it as a custom hook in this function
   const allPosts = useQuery({ queryKey: ['posts'], queryFn: getPosts })
   return allPosts
