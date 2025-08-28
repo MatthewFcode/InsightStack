@@ -5,6 +5,7 @@ import {
   useUpdatePosts,
   useDeletePosts,
 } from '../hooks/usePosts.ts'
+import LoadingState from './LoadingState.tsx'
 
 function Tech() {
   const addMutation = useAddPosts()
@@ -13,12 +14,19 @@ function Tech() {
 
   const { data, isLoading, isError } = useGetPosts()
 
+  if (isLoading) {
+    return <LoadingState />
+  }
+  if (isError) {
+    return <div></div>
+  }
   // state for the topic field
   const [topicInput, setTopicInput] = useState('')
   // state for the post details field
   const [detailsInput, setDetailsInput] = useState('')
   // post button logic
-  const handlePost = async (event) => {
+  const handlePost = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
     await addMutation.mutateAsync({
       topic: topicInput,
       postDetails: detailsInput,
@@ -26,6 +34,16 @@ function Tech() {
     setTopicInput('')
     setDetailsInput('')
   }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    if (name === 'topic') {
+      setTopicInput(value)
+    } else if (name === 'details') {
+      setDetailsInput(value)
+    }
+  }
+
   return (
     <>
       <div>
@@ -33,10 +51,23 @@ function Tech() {
       </div>
       <div>
         <form>
-          <label></label>
-          <input type="text" placeholder="Whats you're topic?" />
-          <label></label>
-          <input type="text" placeholder="What are you're tips?" />
+          <label htmlFor="Topic">Topic</label>
+          <input
+            type="text"
+            name="topic"
+            value={topicInput}
+            onChange={handleChange}
+            placeholder="Whats you're topic?"
+          />
+          <label htmlFor="Details">Details</label>
+          <input
+            type="text"
+            name="details"
+            value={detailsInput}
+            onChange={handleChange}
+            placeholder="What are you're tips?"
+          />
+          <button onClick={handlePost}>Post</button>
         </form>
       </div>
     </>
