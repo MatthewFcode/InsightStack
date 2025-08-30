@@ -17,9 +17,9 @@ export async function getAllPosts(): Promise<Post[] | undefined> {
 export async function createPost(newPost: {
   topic: string
   post_details: string
-}): Promise<Post | undefined> {
+}): Promise<Post[] | undefined> {
   try {
-    const result = await db('posts').insert(newPost).returning('*').first()
+    const result = await db('posts').insert(newPost).returning('*')
     console.log(result)
     return result
   } catch (err) {

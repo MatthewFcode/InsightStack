@@ -1,5 +1,5 @@
 export interface Post {
-  id?: number
+  id?: number | string
   topic: string
   post_details: string
 }

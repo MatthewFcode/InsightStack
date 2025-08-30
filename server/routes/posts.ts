@@ -1,12 +1,12 @@
 import { Router } from 'express'
-import * as db from '../db/index.ts'
+import * as db from '../db/posts.ts'
 
 const router = Router()
 
 router.get('/', async (req, res) => {
   try {
     const posts = await db.getAllPosts()
-    res.json({ posts })
+    res.json(posts)
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: 'Something went wrong' })
@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
       post_details: postDetails,
     }
     const newPost = await db.createPost(convert)
-    res.json({ newPost })
+    res.json(newPost)
   } catch (err) {
     console.log(err)
     res.send(400).json({ message: 'something went wrong' })

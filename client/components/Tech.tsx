@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import {
   useGetPosts,
   useAddPosts,
@@ -6,6 +6,7 @@ import {
   useDeletePosts,
 } from '../hooks/usePosts.ts'
 import LoadingState from './LoadingState.tsx'
+import { Post } from '../../models/posts.ts'
 
 function Tech() {
   const addMutation = useAddPosts()
@@ -15,6 +16,10 @@ function Tech() {
   const [topicInput, setTopicInput] = useState('')
   // state for the post details field
   const [detailsInput, setDetailsInput] = useState('')
+
+  const [editPostId, setEditPostId] = useState<number | null>(null)
+  const [editTopic, setEditTopic] = useState('')
+  const [editDetails, setEditDetails] = useState('')
 
   const { data, isLoading, isError } = useGetPosts()
 
@@ -26,7 +31,7 @@ function Tech() {
   }
 
   // post button logic
-  const handlePost = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handlePost = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     await addMutation.mutateAsync({
       topic: topicInput,
@@ -46,6 +51,25 @@ function Tech() {
     }
   }
 
+  // handling the udpate logic
+  const handleUpdate = async (id: number) => {
+    await updatePosts.mutateAsync({
+      id,
+      topic: editTopic,
+      postDetails: editDetails,
+    })
+    setEditPostId(null)
+    setEditTopic('')
+    setEditDetails('')
+  }
+
+  // on edit handler
+  const handleEditClick = (post: Post) => {
+    setEditPostId(post.id ?? null)
+    setEditTopic(post.topic)
+    setEditDetails(post.post_details)
+  }
+
   // delete button logic - simplified since React Query handles errors
   const handleDelete = async (id: number) => {
     await deleteMutation.mutateAsync(id)
@@ -57,7 +81,7 @@ function Tech() {
         <h1>Tech</h1>
       </div>
       <div>
-        <form>
+        <form onSubmit={handlePost}>
           <label htmlFor="Topic">Topic</label>
           <input
             type="text"
@@ -66,7 +90,7 @@ function Tech() {
             onChange={handleChange}
             placeholder="What's your topic?"
           />
-          <label htmlFor="Details">Details</label>
+          <label htmlFor="Details">Advice</label>
           <input
             type="text"
             name="details"
@@ -74,9 +98,7 @@ function Tech() {
             onChange={handleChange}
             placeholder="What are your tips?"
           />
-          <button onClick={handlePost} disabled={addMutation.isPending}>
-            {addMutation.isPending ? 'Posting...' : 'Post'}
-          </button>
+          <button type="submit">Post</button>
         </form>
       </div>
       {/* Display posts */}
@@ -92,18 +114,46 @@ function Tech() {
                 padding: '10px',
               }}
             >
-              <h3>{post.topic}</h3>
-              <p>{post.postDetails}</p>
-              <button
-                onClick={() => handleDelete(post.id)}
-                disabled={deleteMutation.isPending}
-              >
-                {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
-              </button>
+              {editPostId === post.id ? (
+                <>
+                  <input
+                    type="text"
+                    value={editTopic}
+                    onChange={(e) => setEditTopic(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    value={editDetails}
+                    onChange={(e) => setEditDetails(e.target.value)}
+                  />
+                  <button
+                    onClick={() =>
+                      post.id !== undefined && handleUpdate(post.id)
+                    }
+                  >
+                    {updatePosts.isPending ? 'Updating...' : 'Save'}
+                  </button>
+                  <button onClick={() => setEditPostId(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <h3>{post.topic}</h3>
+                  <p>{post.post_details}</p>
+                  <button onClick={() => handleEditClick(post)}>Edit</button>
+                  <button
+                    onClick={() =>
+                      post.id !== undefined && handleDelete(post.id)
+                    }
+                    disabled={deleteMutation.isPending}
+                  >
+                    {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+                  </button>
+                </>
+              )}
             </div>
           ))
         ) : (
-          <p>No posts yet. Create your first post above!</p>
+          <p>No posts yet. Be the first to post!</p>
         )}
       </div>
     </>
