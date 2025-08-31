@@ -40,7 +40,9 @@ export async function updatePost(
   }
 }
 
-export async function deletePost(id: number): Promise<number | undefined> {
+export async function deletePost(
+  id: number | string,
+): Promise<number | string | undefined> {
   try {
     const deleted = await db('skills').where('skills.id', id).delete()
     console.log('Deleted:', deleted)
