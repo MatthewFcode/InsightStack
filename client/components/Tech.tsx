@@ -100,7 +100,7 @@ function Tech() {
       </form>
 
       <div className="posts-container">
-        <h2>Community Tech Advice</h2>
+        <h2>Tech Advice</h2>
         {data && data.length > 0 ? (
           data.map((post) => (
             <div key={post.id} className="post-card">

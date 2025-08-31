@@ -8,7 +8,7 @@ import Home from './components/Home'
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<Home />} />
-    <Route path="/posts" element={<Tech />} />
+    <Route path="/tech" element={<Tech />} />
     <Route path="/skills" element={<Skills />} />
   </Route>,
 )
