@@ -1,8 +1,7 @@
 function Home() {
   return (
-    <div>
-      <h1>Welcome Home</h1>
-      <p>This is the home page</p>
+    <div className="home-container">
+      <h1>Insight Stack 🗂️</h1>
     </div>
   )
 }
