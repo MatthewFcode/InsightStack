@@ -1,7 +1,7 @@
 function Registration() {
   return (
     <div>
-      <h1>Registration</h1>
+      <h1>Account</h1>
     </div>
   )
 }

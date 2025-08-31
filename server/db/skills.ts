@@ -31,8 +31,8 @@ export async function updatePost(
   updatedPost: { skills_topic: string; skills_details: string },
 ): Promise<Skills | undefined> {
   try {
-    await db('skills').where('skills.id', id).insert(updatedPost)
-    const updatedSkillsPost = await db('skills').select('skills.id', id).first()
+    await db('skills').where('skills.id', id).update(updatedPost)
+    const updatedSkillsPost = await db('skills').where('skills.id', id).first()
     console.log('Updated', updatedSkillsPost)
     return updatedSkillsPost
   } catch (err) {

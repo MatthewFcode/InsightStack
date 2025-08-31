@@ -3,7 +3,7 @@ import { Skills } from '../../models/skills.ts'
 
 const rootURL = new URL(`/api/v1`, document.baseURI)
 
-export async function getSkillPosts(): Promise<Skills | undefined> {
+export async function getSkillsPosts(): Promise<Skills[] | undefined> {
   try {
     const response = await request.get(`${rootURL}/skills`)
     return response.body
