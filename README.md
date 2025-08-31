@@ -1,34 +1,19 @@
-# Boilerplate: Fullstack with Sass
+# 💡 InsightStack
 
-## Setup
+**InsightStack** is a web app that serves as an advice hub for developers. It helps you grow in two key areas of your career:
 
-### What's included
+- **💻 Technical Skills** – coding, tools, architecture, debugging, and more  
+- **🧠 Human Skills** – communication, teamwork, leadership, mindset, and career growth
 
-This repo includes:
-
-* a single, simple API endpoint (`/api/v1/fruits`)
-* a single React component (`<App />`)
-* an example database module (`server/db/fruits.js`)
-* an API client module (`client/apis/fruits.js`)
-* configuration for Vitest and testing library
-* configuration for server-side debugging in VS Code
-* configuration for preprocessing Sass
-
-### Installation
-
-#### **From the Github UI**
-
-See the instructions [here](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) to use Github's feature to create a new repo from a template.
-
-```
-git clone [your-project-ssh-address]
-cd [your-project-name]
-npm install # to install dependencies
-npm run dev # to start the dev server
-```
-```
-
-You can find the server running on [http://localhost:3000](http://localhost:3000) and the client running on [http://localhost:5173](http://localhost:5173).
+Whether you're stuck on a bug or navigating a tricky team dynamic, InsightStack gives you curated advice in one place.
 
 ---
-[Provide feedback on this repo](https://docs.google.com/forms/d/e/1FAIpQLSfw4FGdWkLwMLlUaNQ8FtP2CTJdGDUv6Xoxrh19zIrJSkvT4Q/viewform?usp=pp_url&entry.1958421517=boilerplate-fullstack)
+
+## ✨ What It Does
+
+- Browse developer advice by **Technical** or **Human** skills  
+- Read curated insights and tips contributed by the community  
+- Search by topic  
+- Share your own insights and experiences
+
+---
