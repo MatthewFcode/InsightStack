@@ -7,6 +7,7 @@ const rootURL = new URL(`/api/v1`, document.baseURI)
 interface GetUserFunction {
   token: string
 }
+
 export async function getUser({
   token,
 }: GetUserFunction): Promise<User | null> {
@@ -20,6 +21,7 @@ interface AddUserFunction {
   newUser: User
   token: string
 }
+
 export async function addUser({
   newUser,
   token,

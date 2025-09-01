@@ -1,6 +1,6 @@
 import NavBar from './Nav'
 import Footer from './Footer'
-import Registration from './Registiration'
+import Registration from './Account'
 import { Outlet } from 'react-router'
 
 function App() {
