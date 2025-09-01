@@ -3,7 +3,7 @@
 import { MutationFunction, useQuery } from '@tanstack/react-query'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import * as API from '../api/users.js'
+import * as API from '../apis/user.ts'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export function useUser() {
