@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
     const result = await db.createSkillsPost(convert)
     res.json(result)
   } catch (err) {
-    console.log('WHoops', err)
+    console.log('Whoops', err)
   }
 })
 

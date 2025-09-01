@@ -7,6 +7,7 @@ export async function up(knex) {
     table.increments('id').primary()
     table.string('skills_topic')
     table.string('skills_details')
+    table.string('skills_added_by_user')
   })
 }
 

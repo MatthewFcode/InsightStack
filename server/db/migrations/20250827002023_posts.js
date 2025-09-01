@@ -8,6 +8,7 @@ export async function up(knex) {
     table.increments('id').primary()
     table.string('topic')
     table.string('post_details')
+    table.string('added_by_user')
   })
 }
 
