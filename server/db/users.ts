@@ -23,12 +23,8 @@ export async function createUser(newUser: {
   profile_photo_url: string
   created_at: string
   location: string
-}): Promise<User[] | undefined> {
-  try {
-    const addingUser = await db('users').insert(newUser).returning('*')
-    console.log(addingUser)
-    return addingUser
-  } catch (err) {
-    console.log('Whoops', err)
-  }
+}): Promise<User[]> {
+  const addingUser = await db('users').insert(newUser).returning('*')
+  console.log(addingUser)
+  return addingUser
 }

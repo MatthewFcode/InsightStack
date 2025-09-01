@@ -11,7 +11,7 @@ function NavBar() {
   const handleLogin = () => {
     loginWithRedirect({
       authorizationParams: {
-        redirectUri: `${window.location.origin}`,
+        redirectUri: `${window.location.origin}/registration`,
       },
     })
   }

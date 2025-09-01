@@ -2,6 +2,7 @@ import express from 'express'
 import * as Path from 'node:path'
 import skillRoutes from './routes/skills.ts'
 import newPostRoutes from './routes/posts.ts'
+import userRoutes from './routes/users.ts'
 
 const server = express()
 
@@ -9,6 +10,7 @@ server.use(express.json())
 
 server.use('/api/v1/posts', newPostRoutes)
 server.use('/api/v1/skills', skillRoutes)
+server.use('/api/v1/users', userRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
