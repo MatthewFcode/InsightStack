@@ -3,19 +3,10 @@ import { User } from '../../models/users.ts'
 
 const db = connection
 
-export async function getUserById(user: {
-  auth0Id: string
-  username: string
-  email: string
-  current_position: string
-  about_me: string
-  profile_photo_url: string
-  created_at: string
-  location: string
-}): Promise<User | undefined> {
+export async function getUserById(auth0Id: string): Promise<User | undefined> {
   try {
     const selectedUser = await db('users')
-      .where('users.auth0Id', user.auth0Id)
+      .where('users.auth0Id', auth0Id)
       .first()
     return selectedUser
   } catch (err) {
