@@ -54,11 +54,9 @@ function Registration() {
     if (!dateString) return 'Not specified'
     try {
       return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
+        year: 'numeric',
       })
     } catch {
       return 'Invalid date'
@@ -72,17 +70,15 @@ function Registration() {
   }
 
   return (
-    <div className="account-container">
+    <>
       <IfAuthenticated>
         <div className="account-card">
           <div className="account-header">
-            <h1 className="account-title">Account Profile</h1>
-
             <div className="profile-photo-container">
               {userData?.profile_photo_url ? (
                 <img
                   src={userData.profile_photo_url}
-                  alt="Profile Picture"
+                  alt="profile-picture"
                   className="profile-photo"
                 />
               ) : (
@@ -95,73 +91,66 @@ function Registration() {
             <div className="username-display">
               <span className="username-label">Signed in as</span>
               <span className="username-value">
-                {userData?.username || 'Anonymous'}
+                {userData?.username || 'Loading...'}
               </span>
             </div>
           </div>
 
           <div className="account-info">
-            <div className="info-grid">
-              {userData?.current_position && (
-                <div className="info-item career">
-                  <span className="info-label">Current Position</span>
-                  <span className="info-value primary">
-                    {userData.current_position}
-                  </span>
-                </div>
-              )}
+            {userData?.current_position && (
+              <div className="info-item">
+                <span className="info-label">Position</span>
+                <span className="info-value primary">
+                  {userData.current_position}
+                </span>
+              </div>
+            )}
 
-              {userData?.location && (
-                <div className="info-item">
-                  <span className="info-label">Location</span>
-                  <span className="info-value">{userData.location}</span>
-                </div>
-              )}
+            {userData?.location && (
+              <div className="info-item">
+                <span className="info-label">Location</span>
+                <span className="info-value">{userData.location}</span>
+              </div>
+            )}
 
-              {userData?.about_me && (
-                <div className="info-item about">
-                  <span className="info-label">About</span>
-                  <span className="info-value">{userData.about_me}</span>
-                </div>
-              )}
+            {userData?.about_me && (
+              <div className="info-item">
+                <span className="info-label">About</span>
+                <span className="info-value">{userData.about_me}</span>
+              </div>
+            )}
 
-              {userData?.email && (
-                <div className="info-item">
-                  <span className="info-label">Contact Email</span>
-                  <span className="info-value">{userData.email}</span>
-                </div>
-              )}
-            </div>
+            {userData?.email && (
+              <div className="info-item">
+                <span className="info-label">Email</span>
+                <span className="info-value">{userData.email}</span>
+              </div>
+            )}
           </div>
 
-          <div className="account-footer">
-            <div className="account-metadata">
-              <div className="metadata-item">
-                <div className="metadata-label">Member Since</div>
-                <div className="metadata-value">
-                  {formatDate(userData?.created_at || '')}
+          {userData?.created_at && (
+            <div className="account-footer">
+              <div className="account-metadata">
+                <div className="metadata-item">
+                  <div className="metadata-label">Member Since</div>
+                  <div className="metadata-value">
+                    {formatDate(userData.created_at)}
+                  </div>
                 </div>
               </div>
-
-              <div className="metadata-item">
-                <div className="metadata-label">Account Status</div>
-                <div className="metadata-value">Active Professional</div>
-              </div>
             </div>
-          </div>
+          )}
         </div>
       </IfAuthenticated>
 
       <IfNotAuthenticated>
-        <div className="no-account-prompt">
-          <h2>Sign in or create account to post and interact with posts</h2>
-          <p>
-            Join our community of professionals to share insights, learn from
-            others, and build meaningful connections.
-          </p>
+        <div className="sign-in">
+          <h2 className="signin-text">
+            Sign in or create account to post and interact with posts
+          </h2>
         </div>
       </IfNotAuthenticated>
-    </div>
+    </>
   )
 }
 
