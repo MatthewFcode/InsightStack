@@ -7,6 +7,7 @@ import {
 } from '../hooks/useSkills.ts'
 import LoadingState from './LoadingState.tsx'
 import { Skills } from '../../models/skills.ts'
+import { useAuth0 } from '@auth0/auth0-react'
 
 function SkillsComponent() {
   const addSkillsMutation = useAddSkills()
@@ -19,6 +20,8 @@ function SkillsComponent() {
   const [editTopic, setEditTopic] = useState('')
   const [editDetails, setEditDetails] = useState('')
 
+  const { isAuthenticated } = useAuth0()
+
   const { data, isLoading, isError } = useGetSkills()
 
   if (isLoading) {
@@ -30,12 +33,14 @@ function SkillsComponent() {
 
   const handlePost = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    await addSkillsMutation.mutateAsync({
-      skillsTopic: topicInput,
-      skillsDetails: detailsInput,
-    })
-    setTopicInput('')
-    setDetailsInput('')
+    if (isAuthenticated) {
+      await addSkillsMutation.mutateAsync({
+        skillsTopic: topicInput,
+        skillsDetails: detailsInput,
+      })
+      setTopicInput('')
+      setDetailsInput('')
+    }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +70,9 @@ function SkillsComponent() {
   }
 
   const handleDelete = async (id: number | string) => {
-    await deleteMutation.mutateAsync(id.toString())
+    if (isAuthenticated) {
+      await deleteMutation.mutateAsync(id.toString())
+    }
   }
 
   return (
@@ -102,7 +109,7 @@ function SkillsComponent() {
         {data && data.length > 0 ? (
           data.map((skill) => (
             <div key={skill.id} className="post-card">
-              {editPostId === Number(skill.id) ? (
+              {isAuthenticated && editPostId === Number(skill.id) ? (
                 <div className="edit-form">
                   <div className="edit-title">Edit Your Post</div>
                   <input

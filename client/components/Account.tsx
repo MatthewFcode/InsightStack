@@ -1,17 +1,41 @@
+import { useUser } from '../hooks/useUsers.ts'
 import { useAuth0 } from '@auth0/auth0-react'
-
+import { IfAuthenticated, IfNotAuthenticated } from './Auth0.tsx'
 function Registration() {
-  const { isAuthenticated, user } = useAuth0()
+  const { user } = useAuth0()
+  // const { getAccessTokenSilently } = useAuth0()
+  const { data: userData } = useUser()
   return (
     <div>
-      <h1>Account</h1>
-      {isAuthenticated && user ? (
+      <IfAuthenticated>
+        <h1>Account</h1>
+        {userData?.profile_photo_url && (
+          <img src={userData.profile_photo_url} alt="profile-picture" />
+        )}
+        {user && (
+          <h1>
+            Signed in as: <b>{userData?.username}</b>
+          </h1>
+        )}
+        <h2>
+          Career: <b>{userData?.current_position}</b>
+        </h2>
         <p>
-          Logged in as: <strong>{user.nickname}</strong>
+          About: <b>{userData?.about_me}</b>
         </p>
-      ) : (
-        <p>Please log in to view your account info.</p>
-      )}
+        <h4>
+          Location: <b>{userData?.location}</b>{' '}
+        </h4>
+        <div>
+          <p>{userData?.email} </p>
+          <p>Account created at {userData?.created_at}</p>
+        </div>
+      </IfAuthenticated>
+      <IfNotAuthenticated>
+        <div>
+          <h2>Sign in or create account to post and interact with posts</h2>
+        </div>
+      </IfNotAuthenticated>
     </div>
   )
 }

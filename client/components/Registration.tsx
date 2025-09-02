@@ -68,6 +68,20 @@ function Registration() {
     setErrMsg('')
   }
 
+  const handleFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const file = evt.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setForm({
+          ...form,
+          profile_photo_url: reader.result as string,
+        })
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   return (
     <div>
       <IfAuthenticated>
@@ -84,11 +98,12 @@ function Registration() {
               Drop a profile pic (visible to others when you post)
             </label>
             <input
-              type="text"
+              type="file"
               id="profile_photo_url"
               name="profile_photo_url"
-              value={form.profile_photo_url}
-              onChange={handleChange}
+              //value={form.profile_photo_url}
+              accept="image/*"
+              onChange={handleFileChange}
             />
           </div>
           <div>

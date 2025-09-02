@@ -7,6 +7,7 @@ import {
 } from '../hooks/usePosts.ts'
 import LoadingState from './LoadingState.tsx'
 import { Post } from '../../models/posts.ts'
+import { useAuth0 } from '@auth0/auth0-react'
 
 function Tech() {
   const addMutation = useAddPosts()
@@ -18,7 +19,7 @@ function Tech() {
   const [editPostId, setEditPostId] = useState<number | null>(null)
   const [editTopic, setEditTopic] = useState('')
   const [editDetails, setEditDetails] = useState('')
-
+  const { isAuthenticated } = useAuth0()
   const { data, isLoading, isError } = useGetPosts()
 
   if (isLoading) {
@@ -30,12 +31,14 @@ function Tech() {
 
   const handlePost = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    await addMutation.mutateAsync({
-      topic: topicInput,
-      postDetails: detailsInput,
-    })
-    setTopicInput('')
-    setDetailsInput('')
+    if (isAuthenticated) {
+      await addMutation.mutateAsync({
+        topic: topicInput,
+        postDetails: detailsInput,
+      })
+      setTopicInput('')
+      setDetailsInput('')
+    }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +68,9 @@ function Tech() {
   }
 
   const handleDelete = async (id: number) => {
-    await deleteMutation.mutateAsync(id)
+    if (isAuthenticated) {
+      await deleteMutation.mutateAsync(id)
+    }
   }
 
   return (
@@ -104,7 +109,7 @@ function Tech() {
         {data && data.length > 0 ? (
           data.map((post) => (
             <div key={post.id} className="post-card">
-              {editPostId === Number(post.id) ? (
+              {isAuthenticated && editPostId === Number(post.id) ? (
                 <div className="edit-form">
                   <div className="edit-title">Edit Your Post</div>
                   <input
