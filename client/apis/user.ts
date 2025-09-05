@@ -18,17 +18,16 @@ export async function getUser({
 }
 
 interface AddUserFunction {
-  newUser: User
+  formData: FormData
   token: string
 }
-
 export async function addUser({
-  newUser,
+  formData,
   token,
 }: AddUserFunction): Promise<User> {
   return request
     .post(`${rootURL}/users`)
     .set('Authorization', `Bearer ${token}`)
-    .send(newUser)
+    .send(formData)
     .then((res) => res.body.user)
 }
