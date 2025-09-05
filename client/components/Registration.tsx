@@ -30,14 +30,12 @@ function Registration() {
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
-    auth0Id: '',
     username: '',
     email: '',
     current_position: '',
     about_me: '',
-    profile_photo_url: '',
-    created_at: '',
     location: '',
+    file: null as File | null,
   })
 
   useEffect(() => {
@@ -52,9 +50,10 @@ function Registration() {
     })
   }
   function handleFileChange(evt: React.ChangeEvent<HTMLInputElement>) {
-    if (evt.target.files) setForm({ ...form, file: evt.target.files[0] })
+    if (evt.target.files && evt.target.files[0]) {
+      setForm({ ...form, file: evt.target.files[0] })
+    }
   }
-
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     const token = await getAccessTokenSilently()
     evt.preventDefault()
@@ -64,10 +63,11 @@ function Registration() {
     formData.append('email', form.email)
     formData.append('current_position', form.current_position)
     formData.append('about_me', form.about_me)
+    formData.append('location', form.location)
     formData.append('created_at', new Date().toISOString())
 
-    if (form.profile_photo_url) {
-      formData.append('uploaded_file', form.profile_photo_url)
+    if (form.file) {
+      formData.append('uploaded_file', form.file)
     }
     user.add.mutate({ formData, token }, mutationOptions)
 
