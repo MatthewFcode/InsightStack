@@ -51,36 +51,31 @@ function Registration() {
       [evt.target.name]: evt.target.value,
     })
   }
+  function handleFileChange(evt: React.ChangeEvent<HTMLInputElement>) {
+    if (evt.target.files) setForm({ ...form, file: evt.target.files[0] })
+  }
 
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     const token = await getAccessTokenSilently()
     evt.preventDefault()
 
-    const updatedForm = {
-      ...form,
-      created_at: new Date().toISOString(),
-    }
+    const formData = new FormData()
+    formData.append('username', form.username)
+    formData.append('email', form.email)
+    formData.append('current_position', form.current_position)
+    formData.append('about_me', form.about_me)
+    formData.append('created_at', new Date().toISOString())
 
-    user.add.mutate({ newUser: updatedForm, token }, mutationOptions)
+    if (form.profile_photo_url) {
+      formData.append('uploaded_file', form.profile_photo_url)
+    }
+    user.add.mutate({ formData, token }, mutationOptions)
+
     navigate('/')
   }
 
   const hideError = () => {
     setErrMsg('')
-  }
-
-  const handleFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const file = evt.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setForm({
-          ...form,
-          profile_photo_url: reader.result as string,
-        })
-      }
-      reader.readAsDataURL(file)
-    }
   }
 
   return (
