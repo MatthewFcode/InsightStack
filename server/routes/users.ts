@@ -48,7 +48,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 router.post(
   '/',
   checkJwt,
-  upload.single('uploaded_file'),
+  upload.single('profile_photo_url'),
   async (req: JwtRequest, res) => {
     try {
       const auth0Id = req.auth?.sub

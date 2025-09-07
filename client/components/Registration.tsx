@@ -67,7 +67,7 @@ function Registration() {
     formData.append('created_at', new Date().toISOString())
 
     if (form.file) {
-      formData.append('uploaded_file', form.file)
+      formData.append('profile_photo_url', form.file)
     }
     user.add.mutate({ formData, token }, mutationOptions)
 

@@ -8,6 +8,8 @@ const server = express()
 
 server.use(express.json())
 
+server.use(express.static(Path.resolve('public')))
+
 server.use('/api/v1/posts', newPostRoutes)
 server.use('/api/v1/skills', skillRoutes)
 server.use('/api/v1/users', userRoutes)
