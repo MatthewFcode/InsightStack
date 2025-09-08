@@ -3,9 +3,28 @@ import { Skills } from '../../models/skills.ts'
 
 const db = connection
 
+table.increments('id').primary()
+table.string('skills_topic')
+table.string('skills_details')
+table.string('skills_added_by_user')
+table.string('skills_auth0Id').references('users.auth0Id')
+table.string('skills_created_at')
+
 export async function getAllSkills(): Promise<Skills[] | undefined> {
   try {
-    const allSkills = await db('skills').select()
+    const allSkills = await db('skills')
+      .join('users', 'skills.skills_auth0Id', 'users.auth0Id')
+      .select(
+        'skills.id',
+        'skills.skills_topic',
+        'skills.skills_details',
+        'skills.skills_added_by_user',
+        'skills.skills_created_at',
+        'skills.skills_auth0Id',
+        'users.username',
+        'users.profile_photo_url',
+        'users.current_position',
+      )
     console.log(allSkills)
     return allSkills
   } catch (err) {

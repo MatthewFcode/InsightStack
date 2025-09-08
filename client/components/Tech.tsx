@@ -259,33 +259,31 @@ function Tech() {
       <h1>Tech Advice Hub</h1>
       <p>Share your technical knowledge and learn from the community</p>
 
-      {isAuthenticated && (
-        <form onSubmit={handlePost}>
-          <label htmlFor="topic">Topic</label>
-          <input
-            type="text"
-            name="topic"
-            value={topicInput}
-            onChange={handleChange}
-            placeholder="What's your technical topic?"
-            required
-          />
+      <form onSubmit={handlePost}>
+        <label htmlFor="topic">Topic</label>
+        <input
+          type="text"
+          name="topic"
+          value={topicInput}
+          onChange={handleChange}
+          placeholder="What's your technical topic?"
+          required
+        />
 
-          <label htmlFor="details">Technical Advice</label>
-          <input
-            type="text"
-            name="details"
-            value={detailsInput}
-            onChange={handleChange}
-            placeholder="Share your expertise and tips..."
-            required
-          />
+        <label htmlFor="details">Technical Advice</label>
+        <input
+          type="text"
+          name="details"
+          value={detailsInput}
+          onChange={handleChange}
+          placeholder="Share your expertise and tips..."
+          required
+        />
 
-          <button type="submit" disabled={addMutation.isPending}>
-            {addMutation.isPending ? 'Publishing...' : 'Publish Advice'}
-          </button>
-        </form>
-      )}
+        <button type="submit" disabled={addMutation.isPending}>
+          {addMutation.isPending ? 'Publishing...' : 'Publish Advice'}
+        </button>
+      </form>
 
       <div className="posts-container">
         <h2>Tech Advice</h2>

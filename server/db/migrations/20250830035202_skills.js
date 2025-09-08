@@ -8,6 +8,8 @@ export async function up(knex) {
     table.string('skills_topic')
     table.string('skills_details')
     table.string('skills_added_by_user')
+    table.string('skills_auth0Id').references('users.auth0Id')
+    table.string('skills_created_at')
   })
 }
 
