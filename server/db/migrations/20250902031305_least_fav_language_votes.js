@@ -8,6 +8,7 @@ export async function up(knex) {
     table
       .integer('least_favourite_language_id')
       .references('least_favourite_language.id')
+      .onDelete('CASCADE')
   })
 }
 /**

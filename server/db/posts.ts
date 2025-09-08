@@ -6,7 +6,19 @@ const db = connection
 
 export async function getAllPosts(): Promise<Post[] | undefined> {
   try {
-    const result = await db('posts').select()
+    const result = await db('posts')
+      .join('users', 'posts.post_auth0Id', 'users.auth0Id')
+      .select(
+        'posts.id',
+        'posts.topic',
+        'posts.posts_details',
+        'posts.post_created_at',
+        'posts.post_auth0Id',
+        'users.username',
+        'users.profile_photo_url',
+        'users.current_position',
+      )
+      .orderBy('posts.post_created_at')
     console.log(result)
     return result
   } catch (err) {
@@ -16,7 +28,9 @@ export async function getAllPosts(): Promise<Post[] | undefined> {
 
 export async function createPost(newPost: {
   topic: string
-  post_details: string
+  posts_details: string
+  added_by_user: string
+  post_auth0Id: string
 }): Promise<Post[] | undefined> {
   try {
     const result = await db('posts').insert(newPost).returning('*')
@@ -29,11 +43,29 @@ export async function createPost(newPost: {
 
 export async function updatePost(
   id: number,
-  updatedPost: { topic: string; post_details: string },
-): Promise<Post | undefined> {
+  auth0Id: string,
+  updatedPost: { topic: string; posts_details: string },
+): Promise<Post[] | undefined> {
   try {
-    await db('posts').where('posts.id', id).update(updatedPost)
-    const result = await db('posts').where('posts.id', id).first()
+    // select the post by the post id and where the auth0Id matches
+    await db('posts')
+      .where('posts.id', id)
+      .andWhere('posts.posts_auth0Id', auth0Id)
+      .update(updatedPost)
+    // return the update post
+    const result = await db('posts')
+      .join('users', 'posts.posts_auth0Id', 'users.auth0Id')
+      .where('posts.id', id)
+      .select(
+        'posts.id',
+        'posts.topic',
+        'posts.posts_details',
+        'posts.post_created_at',
+        'posts.post_auth0Id',
+        'users.username',
+        'users.profile_photo_url',
+        'users.current_position',
+      )
     console.log('updated', result)
     return result
   } catch (err) {
@@ -41,9 +73,15 @@ export async function updatePost(
   }
 }
 
-export async function deletePost(id: string): Promise<number | undefined> {
+export async function deletePost(
+  id: string,
+  auth0Id: string,
+): Promise<number | undefined> {
   try {
-    const result = await db('posts').where('posts.id', id).delete()
+    const result = await db('posts')
+      .where('posts.id', id)
+      .andWhere('posts.post_auth0Id', auth0Id)
+      .delete()
     console.log('deleted', result)
     return result
   } catch (err) {
