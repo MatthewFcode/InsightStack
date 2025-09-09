@@ -13,7 +13,7 @@ export interface Post {
   auth0Id?: string
   post_created_at?: string
   created_at?: string
-  // User information joined from users table
+
   username?: string
   profile_photo_url?: string
   current_position?: string

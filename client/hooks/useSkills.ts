@@ -10,6 +10,7 @@ import {
   updateSkillsPost,
   deleteSkillsPost,
 } from '../apis/skills'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export function useGetSkills() {
   // getting all of the data from my api route and stroing it as a custom hook in this function
@@ -32,22 +33,56 @@ export function useSkillsMutation<TData = unknown, TVariables = unknown>(
 }
 
 export function useAddSkills() {
-  return useSkillsMutation(createSkillsPost)
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const addSkillsWrapper = async (newSkill: {
+    skillsTopic: string
+    skillsDetails: string
+  }) => {
+    let token = undefined
+    if (isAuthenticated) {
+      token = await getAccessTokenSilently()
+    }
+    if (!token) {
+      throw new Error('User is not authenticated')
+    }
+    return createSkillsPost(newSkill, token)
+  }
+  return useSkillsMutation(addSkillsWrapper)
 }
 // react query mutation functions only expect one parameter not two so I am creating a function wrapper to acheive this one parameter type rule
 export function useUpdateSkills() {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
   const updatePostsWrapper = async (updateData: {
     id: number
     skillsTopic: string
     skillsDetails: string
   }) => {
     const { id, ...updatedDetails } = updateData
-    return updateSkillsPost(id, updatedDetails)
+    let token = undefined
+    if (isAuthenticated) {
+      token = await getAccessTokenSilently()
+    }
+    if (!token) {
+      throw new Error('User is not authenticated')
+    }
+
+    return updateSkillsPost(id, updatedDetails, token)
   }
 
   return useSkillsMutation(updatePostsWrapper)
 }
 
 export function useDeleteSkills() {
-  return useSkillsMutation(deleteSkillsPost)
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const deleteSkillsWrapper = async (id: string) => {
+    let token = undefined
+    if (isAuthenticated) {
+      token = await getAccessTokenSilently()
+    }
+    if (!token) {
+      throw new Error('User is not authenticated')
+    }
+    return deleteSkillsPost(id, token)
+  }
+  return useSkillsMutation(deleteSkillsWrapper)
 }

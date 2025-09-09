@@ -1,5 +1,7 @@
 import { Router } from 'express'
 import * as db from '../db/skills.ts'
+import * as connection from '../db/users.ts'
+import checkJwt, { JwtRequest } from '../auth0'
 
 const router = Router()
 
@@ -13,12 +15,16 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { skillsTopic, skillsDetails } = req.body
+    const auth0Id = req.auth?.sub
+    const user = await connection.getUserById(auth0Id as string)
     const convert = {
-      skills_topic: skillsTopic,
-      skills_details: skillsDetails,
+      skills_topic: skillsTopic as string,
+      skills_details: skillsDetails as string,
+      skills_auth0Id: auth0Id as string,
+      skills_added_by_user: user?.username as string,
     }
     const result = await db.createSkillsPost(convert)
     res.json(result)
@@ -27,25 +33,27 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
     const id = Number(req.params.id)
+    const auth0Id = req.auth?.sub as string
     const { skillsTopic, skillsDetails } = req.body
     const convert = {
       skills_topic: skillsTopic,
       skills_details: skillsDetails,
     }
-    const result = await db.updatePost(id, convert)
+    const result = await db.updatePost(id, auth0Id, convert)
     res.json(result)
   } catch (err) {
     console.log('Whoops', err)
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
+    const auth0Id = req.auth?.sub as string
     const id = req.params.id
-    await db.deletePost(id)
+    await db.deletePost(id, auth0Id)
     res.sendStatus(204)
   } catch (err) {
     console.log('Whoops', err)
