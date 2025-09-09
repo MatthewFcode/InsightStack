@@ -3,7 +3,6 @@
  * @returns { Promise<void> }
  */
 export async function seed(knex) {
-  // await knex('skills').del()
   await knex('skills').insert([
     {
       skills_topic: 'Growth mindset',

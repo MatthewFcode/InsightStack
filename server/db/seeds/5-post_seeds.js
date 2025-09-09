@@ -4,7 +4,6 @@
  */
 
 export async function seed(knex) {
-  //await knex('posts').del()
   await knex('posts').insert([
     {
       topic: 'Seeds with knex.js',

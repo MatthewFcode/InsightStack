@@ -3,8 +3,6 @@
  * @returns { Promise<void> }
  */
 export async function seed(knex) {
-  // Deletes ALL existing entries
-  //await knex('least_favourite_language').del()
   await knex('least_favourite_language').insert([
     { least_favourite_language: 'HTML' },
     { least_favourite_language: 'CSS' },

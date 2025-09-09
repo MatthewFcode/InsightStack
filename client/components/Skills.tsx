@@ -20,7 +20,7 @@ function SkillsComponent() {
   const [editTopic, setEditTopic] = useState('')
   const [editDetails, setEditDetails] = useState('')
 
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated, user } = useAuth0()
 
   const { data, isLoading, isError } = useGetSkills()
 
@@ -75,6 +75,11 @@ function SkillsComponent() {
     }
   }
 
+  // Helper function to check if current user owns the post
+  const isPostOwner = (skill: Skills) => {
+    return user?.sub === skill.skills_auth0Id
+  }
+
   return (
     <>
       <h1>Human Skills Development</h1>
@@ -109,7 +114,9 @@ function SkillsComponent() {
         {data && data.length > 0 ? (
           data.map((skill) => (
             <div key={skill.id} className="post-card">
-              {isAuthenticated && editPostId === Number(skill.id) ? (
+              {isAuthenticated &&
+              editPostId === Number(skill.id) &&
+              isPostOwner(skill) ? (
                 <div className="edit-form">
                   <div className="edit-title">Edit Your Post</div>
                   <input
@@ -142,23 +149,123 @@ function SkillsComponent() {
                 </div>
               ) : (
                 <>
-                  <h3>{skill.skills_topic}</h3>
-                  <p>{skill.skills_details}</p>
-                  <div className="post-actions">
-                    <button
-                      onClick={() => handleEditClick(skill)}
-                      className="btn-secondary"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(skill.id!)}
-                      disabled={deleteMutation.isPending}
-                      className="btn-danger"
-                    >
-                      {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
-                    </button>
+                  {/*} User Information Display
+                  <div className="post-author">
+                    <div className="author-avatar">
+                      {skill.profile_photo_url ? (
+                        <img
+                          src={skill.profile_photo_url}
+                          alt={`${skill.username}'s profile`}
+                          className="profile-photo"
+                        />
+                      ) : (
+                        <div className="default-avatar">
+                          {skill.username?.charAt(0).toUpperCase() || 'U'}
+                        </div>
+                      )}
+                    </div>
+                    <div className="author-info">
+                      <h4 className="author-name">
+                        {skill.username || 'Anonymous User'}
+                      </h4>
+                      {skill.current_position && (
+                        <p className="author-position">
+                          {skill.current_position}
+                        </p>
+                      )}
+                      {skill.location && (
+                        <p className="author-location">{skill.location}</p>
+                      )}
+                      <p className="post-date">
+                        {skill.created_at
+                          ? new Date(skill.created_at).toLocaleDateString()
+                          : 'Unknown date'}
+                      </p>
+                    </div>
                   </div>
+
+                  {/* Post Content 
+                  <div className="post-content">
+                    <h3>{skill.skills_topic}</h3>
+                    <p>{skill.skills_details}</p>
+                  </div> 
+                  */}
+                  {/* User Information Display */}
+                  <div className="post-author">
+                    {/* Avatar */}
+                    <div className="author-avatar">
+                      {skill.profile_photo_url ? (
+                        <img
+                          src={skill.profile_photo_url}
+                          alt={`${skill.username}'s profile`}
+                          className="profile-photo"
+                        />
+                      ) : (
+                        <div className="default-avatar">
+                          {skill.username?.charAt(0).toUpperCase() || 'U'}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* User Info on one line */}
+                    <div className="center-user-info">
+                      <span className="author-name">
+                        {skill.username || 'Anonymous User'}
+                      </span>
+
+                      {skill.current_position && (
+                        <>
+                          <span className="separator">|</span>
+                          <span className="author-position">
+                            {skill.current_position}
+                          </span>
+                        </>
+                      )}
+
+                      {skill.location && (
+                        <>
+                          <span className="separator">|</span>
+                          <span className="author-location">
+                            {skill.location}
+                          </span>
+                        </>
+                      )}
+
+                      {skill.created_at && (
+                        <>
+                          <span className="separator">|</span>
+                          <span className="post-date">
+                            {new Date(skill.created_at).toLocaleDateString()}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Post Content */}
+                  <div className="post-content">
+                    <h3>{skill.skills_topic}</h3>
+                    <p>{skill.skills_details}</p>
+                  </div>
+
+                  {/* Post Actions - Only show for post owner */}
+                  {isAuthenticated && isPostOwner(skill) && (
+                    <div className="post-actions">
+                      <button
+                        onClick={() => handleEditClick(skill)}
+                        className="btn-secondary"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(skill.id!)}
+                        disabled={deleteMutation.isPending}
+                        className="btn-danger"
+                      >
+                        {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+                      </button>
+                    </div>
+                  )}
                 </>
               )}
             </div>

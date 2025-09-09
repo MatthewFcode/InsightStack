@@ -3,8 +3,6 @@
  * @returns { Promise<void> }
  */
 export async function seed(knex) {
-  // Deletes ALL existing entries
-  //await knex('favourite_language_votes').del()
   await knex('favourite_language_votes').insert([
     { favourite_language_id: 1 },
     { favourite_language_id: 2 },
