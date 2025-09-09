@@ -11,7 +11,7 @@ export async function getAllPosts(): Promise<Post[] | undefined> {
       .select(
         'posts.id',
         'posts.topic',
-        'posts.posts_details',
+        'posts.posts_details as post_details',
         'posts.post_created_at',
         'posts.post_auth0Id',
         'users.username',

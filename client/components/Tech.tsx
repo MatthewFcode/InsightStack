@@ -9,6 +9,19 @@ import LoadingState from './LoadingState.tsx'
 import { Post } from '../../models/posts.ts'
 import { useAuth0 } from '@auth0/auth0-react'
 
+// helper function to help format the date
+const formatDate = (dateString: string) => {
+  if (!dateString) return 'Not specified'
+  try {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  } catch {
+    return 'Invalid date'
+  }
+}
 function Tech() {
   const addMutation = useAddPosts()
   const updatePosts = useUpdatePosts()
@@ -189,13 +202,12 @@ function Tech() {
                           </span>
                         </>
                       )}
-
                       {post.created_at && (
                         <>
                           <span className="separator">|</span>
-                          <span className="post-date">
-                            {new Date(post.created_at).toLocaleDateString()}
-                          </span>
+                          <p className="post-date">
+                            {formatDate(post.created_at)}
+                          </p>
                         </>
                       )}
                     </div>
