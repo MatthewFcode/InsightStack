@@ -1,4 +1,4 @@
-import { LeastFavLang, LeastFavLangVote } from '../../models/votes.ts'
+import { LeastFavLang } from '../../models/votes.ts'
 
 import connection from './connection.ts'
 
@@ -17,9 +17,7 @@ export async function getLeastFavouriteLanguages(): Promise<
 }
 
 // get the vote scores and group them and count them
-export async function getLeastFavouriteLanguageVotes(): Promise<
-  LeastFavLangVote[] | undefined
-> {
+export async function getLeastFavouriteLanguageVotes() {
   try {
     const result = await db('least_favourite_language_votes')
       .join(

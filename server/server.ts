@@ -13,6 +13,8 @@ server.use(express.static(Path.resolve('public')))
 server.use('/api/v1/posts', newPostRoutes)
 server.use('/api/v1/skills', skillRoutes)
 server.use('/api/v1/users', userRoutes)
+server.use('/api/v1/fav-languages')
+server.use('/api/v1/least-fav-languages')
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))

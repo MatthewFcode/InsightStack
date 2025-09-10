@@ -1,5 +1,5 @@
 import connection from './connection.ts'
-import { FavLang, FavLangVote } from '../../models/votes.ts'
+import { FavLang } from '../../models/votes.ts'
 
 const db = connection
 
@@ -14,9 +14,7 @@ export async function getFavouriteLanguages(): Promise<FavLang[] | undefined> {
 }
 
 // getting the results for both of the least favourite and favourtie vote languages
-export async function getFavouriteLanguageVotes(): Promise<
-  FavLangVote[] | undefined
-> {
+export async function getFavouriteLanguageVotes() {
   try {
     const result = await db('favourite_language_votes')
       .join(
