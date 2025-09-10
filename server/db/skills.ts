@@ -11,12 +11,13 @@ export async function getAllSkills(): Promise<Skills[] | undefined> {
         'skills.id',
         'skills.skills_topic',
         'skills.skills_details',
-        'skills.skills_created_at',
+        'skills.skills_created_at as created_at',
         'skills.skills_auth0Id',
         'users.username',
         'users.profile_photo_url',
         'users.current_position',
       )
+      .orderBy('skills.skills_created_at', 'desc')
     console.log(allSkills)
     return allSkills
   } catch (err) {

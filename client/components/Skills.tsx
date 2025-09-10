@@ -9,6 +9,20 @@ import LoadingState from './LoadingState.tsx'
 import { Skills } from '../../models/skills.ts'
 import { useAuth0 } from '@auth0/auth0-react'
 
+// helper function to help format the date
+const formatDate = (dateString: string) => {
+  if (!dateString) return 'Not specified'
+  try {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  } catch {
+    return 'Invalid date'
+  }
+}
+
 function SkillsComponent() {
   const addSkillsMutation = useAddSkills()
   const updateSkills = useUpdateSkills()
@@ -149,47 +163,6 @@ function SkillsComponent() {
                 </div>
               ) : (
                 <>
-                  {/*} User Information Display
-                  <div className="post-author">
-                    <div className="author-avatar">
-                      {skill.profile_photo_url ? (
-                        <img
-                          src={skill.profile_photo_url}
-                          alt={`${skill.username}'s profile`}
-                          className="profile-photo"
-                        />
-                      ) : (
-                        <div className="default-avatar">
-                          {skill.username?.charAt(0).toUpperCase() || 'U'}
-                        </div>
-                      )}
-                    </div>
-                    <div className="author-info">
-                      <h4 className="author-name">
-                        {skill.username || 'Anonymous User'}
-                      </h4>
-                      {skill.current_position && (
-                        <p className="author-position">
-                          {skill.current_position}
-                        </p>
-                      )}
-                      {skill.location && (
-                        <p className="author-location">{skill.location}</p>
-                      )}
-                      <p className="post-date">
-                        {skill.created_at
-                          ? new Date(skill.created_at).toLocaleDateString()
-                          : 'Unknown date'}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Post Content 
-                  <div className="post-content">
-                    <h3>{skill.skills_topic}</h3>
-                    <p>{skill.skills_details}</p>
-                  </div> 
-                  */}
                   {/* User Information Display */}
                   <div className="post-author">
                     {/* Avatar */}
@@ -234,9 +207,9 @@ function SkillsComponent() {
                       {skill.created_at && (
                         <>
                           <span className="separator">|</span>
-                          <span className="post-date">
-                            {new Date(skill.created_at).toLocaleDateString()}
-                          </span>
+                          <p className="post-date">
+                            {formatDate(skill.created_at)}
+                          </p>
                         </>
                       )}
                     </div>

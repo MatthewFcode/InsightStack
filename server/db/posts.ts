@@ -12,13 +12,13 @@ export async function getAllPosts(): Promise<Post[] | undefined> {
         'posts.id',
         'posts.topic',
         'posts.posts_details as post_details',
-        'posts.post_created_at',
+        'posts.post_created_at as created_at',
         'posts.post_auth0Id',
         'users.username',
         'users.profile_photo_url',
         'users.current_position',
       )
-      .orderBy('posts.post_created_at')
+      .orderBy('posts.post_created_at', 'desc')
     console.log(result)
     return result
   } catch (err) {
