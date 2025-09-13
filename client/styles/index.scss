@@ -532,7 +532,7 @@ button:not([type="submit"]):not(.btn-primary):not(.btn-danger) {
   font-size: 14px;
 }
 
-post-author {
+.post-author {
  
   gap: 16px;
   margin-bottom: 24px;
@@ -543,59 +543,20 @@ post-author {
     flex-shrink: 0;
   }
 
-  .author-info {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap; /* allow wrapping if needed on small screens */
-    gap: 8px 16px; /* vertical and horizontal spacing */
-    
-    .author-name,
-    .post-title,
-    .author-position,
-    .author-location,
-    .post-date {
-      margin: 0;
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    .author-name {
-      font-weight: 700;
-      color: var(--primary-blue);
-      text-transform: uppercase;
-    }
-
-    .post-title {
-      font-weight: 600;
-      color: var(--gray-700);
-    }
-
-    .author-position {
-      font-style: italic;
-      color: var(--gray-600);
-    }
-
-    .author-location {
-      color: var(--gray-500);
-      
-      &::before {
-        content: '📍';
-        margin-right: 4px;
-      }
-    }
-
-    .post-date {
-      background: var(--blue-50);
-      border: 1px solid var(--blue-200);
-      padding: 4px 8px;
-      border-radius: var(--border-radius-md);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--gray-500);
-    }
+  .author-info .post-date {
+    background: var(--blue-50);
+    border: 1px solid var(--blue-200);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+    position: relative;
+    top: 4px; /* This moves it down slightly */
   }
-}
-
+  
+  /* Or try this alternative if the above doesn't work */
+ 
 
 .post-content {
   margin-bottom: 24px;
@@ -678,74 +639,7 @@ post-author {
   }
 }
 
-@media (max-width: 480px) {
-  .post-card {
-    padding: 24px 20px;
-  }
-  
-  .post-author {
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    gap: 10px;
-  }
-  
-  .profile-photo,
-  .default-avatar {
-    width: 50px; /* Minimum size for mobile */
-    height: 50px;
-  }
-  
-  .default-avatar {
-    font-size: 18px;
-  }
-  
-  .author-info {
-    padding-top: 2px;
-  }
-  
-  .author-name {
-    font-size: 15px;
-    margin-bottom: 6px;
-  }
-  
-  .author-position {
-    font-size: 13px;
-    margin-bottom: 4px;
-  }
-  
-  .author-location {
-    font-size: 11px;
-    margin-bottom: 6px;
-  }
-  
-  .post-date {
-    font-size: 10px;
-    padding: 3px 6px;
-  }
-  
-  .post-content {
-    margin-bottom: 20px;
-    
-    h3 {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-    }
-    
-    p {
-      font-size: 14px;
-      line-height: 1.6;
-    }
-  }
-  
-  .post-actions {
-    flex-direction: column;
-    gap: 12px;
-    
-    button {
-      width: 100%;
-    }
-  }
-}
+
  
 
 /* FIXED: Professional Edit Form Styles */
@@ -1348,10 +1242,6 @@ body.home-page .registration-panel {
   }
 }
 
-/* Compact Account Section for Sidebar */
-.account-container {
-  /* Remove container styling - it's already in the sidebar */
-}
 
 .account-card {
   background: transparent;
@@ -1560,11 +1450,6 @@ body.home-page .registration-panel {
   color: #888;
 }
 
-.post-date {
-  margin: 0;
-  font-size: 12px;
-  color: #aaa;
-}
 
 .post-content {
   margin-bottom: 16px;
@@ -1764,15 +1649,34 @@ body.home-page .registration-panel {
   }
 }
 
-.sign-in {
-  
-}
 
 .signin-text {
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   color: whitesmoke;
   opacity: 0.8;
   padding-bottom: 0.6rem;
   border-bottom: 0.1rem solid whitesmoke;
+}
+/* POST DATE FIX - Add this at the very end of your CSS file */
+.post-date {
+  margin: 0 !important;
+  font-size: 15px !important;
+  color: #8a8585 !important;
+
+  padding: 4px 8px !important;
+  border-radius: var(--border-radius-md) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  position: relative !important;
+  top: 9px !important; /* This will move it down */
+  display: inline-block !important;
+}
+
+/* Alternative - if you want to target more specifically */
+.post-author .post-date,
+.author-info .post-date {
+  position: relative !important;
+  top: -1.1px !important;
+  margin-top: 0px !important;
 }
