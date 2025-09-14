@@ -9,14 +9,21 @@ function Carousel() {
     infinite: false,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
+    arrows: true,
   }
 
   return (
-    <Slider {...settings}>
-      <FavLang />
-      <LeastFavLang />
-    </Slider>
+    <div className="slider-container">
+      <Slider {...settings}>
+        <div>
+          <FavLang />
+        </div>
+        <div>
+          <LeastFavLang />
+        </div>
+      </Slider>
+    </div>
   )
 }
 

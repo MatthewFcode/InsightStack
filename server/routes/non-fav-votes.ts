@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 })
 
 // get route with the votes and the names of the languages
-router.get('/fav-votes', async (req, res) => {
+router.get('/least-fav-votes', async (req, res) => {
   try {
     const result = await db.getLeastFavouriteLanguageVotes()
     res.json(result)
@@ -32,7 +32,7 @@ router.post('/:id', async (req, res) => {
     res.json({ result })
   } catch (err) {
     console.log(err)
-    res.send(400).json({ message: 'bad post request' })
+    res.status(400).json({ message: 'bad post request' })
   }
 })
 export default router

@@ -116,7 +116,8 @@ html, body {
   display: flex;
   gap: 12px;
   width: 100%;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-right:40px;
 }
 
 .nav-link {
@@ -1698,8 +1699,18 @@ body.home-page .registration-panel {
   border: 1px solid var(--blue-200);
   text-align: center;
   width: 70rem;
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
+.slider-container {
+  width: 70rem;
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 10; /* or higher if needed */
+}
+
+
 
 .vote-options-container {
   display: flex;

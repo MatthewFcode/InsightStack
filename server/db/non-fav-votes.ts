@@ -9,7 +9,10 @@ export async function getLeastFavouriteLanguages(): Promise<
   LeastFavLang[] | undefined
 > {
   try {
-    const result = await db('least_favourite_language').select()
+    const result = await db('least_favourite_language').select(
+      'id',
+      'least_favourite_language as language',
+    )
     return result
   } catch (err) {
     console.log(err)
@@ -25,8 +28,8 @@ export async function getLeastFavouriteLanguageVotes() {
         'least_favourite_language_id',
         'least_favourite_language.id',
       )
-      .select('least_favourite_language.least_favourite_language')
-      .count('least_favourite_language_votes.id as leastFavouriteVotes')
+      .select('least_favourite_language.least_favourite_language as language')
+      .count('least_favourite_language_votes.id as votes')
       .groupBy('least_favourite_language.least_favourite_language')
     return result
   } catch (err) {
