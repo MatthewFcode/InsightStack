@@ -30,7 +30,7 @@ router.get('/fav-votes', async (req, res) => {
 
 router.post('/:id', async (req, res) => {
   try {
-    const id = req.params.id
+    const id = Number(req.params.id)
     const postedVote = await db.addFavouriteLanguageVote(id)
     res.json({ postedVote })
   } catch (err) {

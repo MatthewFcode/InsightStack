@@ -42,6 +42,6 @@ export function useSomethingMutation<TData = unknown, TVariables = unknown>(
   return mutation
 }
 
-export async function useAddFavVote() {
+export function useAddFavVote() {
   return useSomethingMutation(sendVote)
 }

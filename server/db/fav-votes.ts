@@ -23,7 +23,7 @@ export async function getFavouriteLanguageVotes() {
         'favourite_language.id',
       )
       .select('favourite_language.language')
-      .count('favourite_language_votes.id as favouriteVotes')
+      .count('favourite_language_votes.id as votes')
       .groupBy('favourite_language.language')
     return result
   } catch (err) {
@@ -33,7 +33,7 @@ export async function getFavouriteLanguageVotes() {
 
 // adding a vote for the fav and least fav
 export async function addFavouriteLanguageVote(
-  favouriteLanguageId: string,
+  favouriteLanguageId: number,
 ): Promise<number[] | undefined> {
   try {
     const result = await db('favourite_language_votes').insert({
