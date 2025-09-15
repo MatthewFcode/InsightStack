@@ -47,7 +47,7 @@ function LeastFavLang() {
 
   return (
     <div className="vote-card">
-      <h2 className="edit-title">Least Favorite Programming Languages</h2>
+      <h2 className="edit-title">Least Used Programming Language</h2>
       {!hasVoted ? (
         <div className="vote-options-container">
           {data?.map((language: { id: string; language: string }) => (
