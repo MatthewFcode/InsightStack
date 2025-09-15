@@ -13,6 +13,6 @@ export async function seed(knex) {
     { least_favourite_language: 'React' },
     { least_favourite_language: 'Express.js' },
     { least_favourite_language: 'C#' },
-    { least_favourite_language: 'JavaScript' },
+    { least_favourite_language: 'Golang' },
   ])
 }
