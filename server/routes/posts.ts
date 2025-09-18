@@ -2,6 +2,8 @@ import { Router } from 'express'
 import * as db from '../db/posts.ts'
 import * as connection from '../db/users.ts'
 import checkJwt, { JwtRequest } from '../auth0'
+import { wss } from '../server.ts'
+import ws from 'ws'
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -30,6 +32,18 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
       added_by_user: user?.username as string,
     }
     const newPost = await db.createPost(convert)
+
+    wss.clients.forEach((client) => {
+      if (client.readyState === ws.OPEN) {
+        client.send(
+          JSON.stringify({
+            type: 'database_change',
+            message: 'New tech post added',
+          }),
+        )
+      }
+    })
+
     res.json(newPost)
   } catch (err) {
     console.log(err)
@@ -52,6 +66,18 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
       posts_details: postDetails,
     }
     const updatedPost = await db.updatePost(id, auth0Id, convert)
+
+    wss.clients.forEach((client) => {
+      if (client.readyState === ws.OPEN) {
+        client.send(
+          JSON.stringify({
+            type: 'database_change',
+            message: 'New tech post updated',
+          }),
+        )
+      }
+    })
+
     res.status(200).json(updatedPost)
   } catch (err) {
     console.log(err)
@@ -69,6 +95,18 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
     }
 
     await db.deletePost(id, auth0Id)
+
+    wss.clients.forEach((client) => {
+      if (client.readyState === ws.OPEN) {
+        client.send(
+          JSON.stringify({
+            type: 'database_change',
+            message: 'New tech post deleted',
+          }),
+        )
+      }
+    })
+
     res.sendStatus(204)
   } catch (err) {
     console.log(err)

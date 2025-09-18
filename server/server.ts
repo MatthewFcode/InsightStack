@@ -6,24 +6,44 @@ import userRoutes from './routes/users.ts'
 import favRoutes from './routes/fav-votes.ts'
 import leastFavRoutes from './routes/non-fav-votes.ts'
 
-const server = express()
+import { createServer } from 'http'
+import { WebSocketServer } from 'ws'
 
-server.use(express.json())
+const app = express()
 
-server.use(express.static(Path.resolve('public')))
+const server = createServer(app)
+const wss = new WebSocketServer({ server })
 
-server.use('/api/v1/posts', newPostRoutes)
-server.use('/api/v1/skills', skillRoutes)
-server.use('/api/v1/users', userRoutes)
-server.use('/api/v1/fav-languages', favRoutes)
-server.use('/api/v1/least-fav-languages', leastFavRoutes)
+app.use(express.json())
+
+app.use(express.static(Path.resolve('public')))
+
+app.use('/api/v1/posts', newPostRoutes)
+app.use('/api/v1/skills', skillRoutes)
+app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/fav-languages', favRoutes)
+app.use('/api/v1/least-fav-languages', leastFavRoutes)
 
 if (process.env.NODE_ENV === 'production') {
-  server.use(express.static(Path.resolve('public')))
-  server.use('/assets', express.static(Path.resolve('./dist/assets')))
-  server.get('*', (req, res) => {
+  app.use(express.static(Path.resolve('public')))
+  app.use('/assets', express.static(Path.resolve('./dist/assets')))
+  app.get('*', (req, res) => {
     res.sendFile(Path.resolve('./dist/index.html'))
   })
 }
 
-export default server
+// WebSocket server setup
+
+wss.on('connection', (ws) => {
+  console.log('Client connected')
+
+  ws.on('message', (message) => {
+    console.log(`Received message: ${message}`)
+  })
+
+  ws.on('close', () => {
+    console.log('Client disconnected')
+  })
+})
+
+export { server, wss }

@@ -8,6 +8,23 @@ import {
 import LoadingState from './LoadingState.tsx'
 import { Skills } from '../../models/skills.ts'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
+
+ws.onopen = () => {}
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data)
+  if (data.type === 'database_change') {
+    window.location.reload()
+  }
+}
+
+ws.onclose = () => {}
+
+ws.onerror = (error) => {
+  console.error('WebSocket error:', error)
+}
 
 // helper function to help format the date
 const formatDate = (dateString: string) => {
@@ -24,6 +41,34 @@ const formatDate = (dateString: string) => {
 }
 
 function SkillsComponent() {
+  const queryClient = useQueryClient()
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:3000')
+
+    ws.onopen = () => {
+      console.log('WebSocket connected')
+    }
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data)
+      if (data.type === 'database_change') {
+        // Instead of reload → tell React Query to refetch
+        queryClient.invalidateQueries({ queryKey: ['skills'] })
+      }
+    }
+
+    ws.onclose = () => {
+      console.log('WebSocket closed')
+    }
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error)
+    }
+
+    // cleanup when component unmounts
+    return () => ws.close()
+  }, [queryClient])
+
   const addSkillsMutation = useAddSkills()
   const updateSkills = useUpdateSkills()
   const deleteMutation = useDeleteSkills()
