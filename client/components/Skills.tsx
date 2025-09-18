@@ -11,21 +11,6 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
-ws.onopen = () => {}
-
-ws.onmessage = (event) => {
-  const data = JSON.parse(event.data)
-  if (data.type === 'database_change') {
-    window.location.reload()
-  }
-}
-
-ws.onclose = () => {}
-
-ws.onerror = (error) => {
-  console.error('WebSocket error:', error)
-}
-
 // helper function to help format the date
 const formatDate = (dateString: string) => {
   if (!dateString) return 'Not specified'
