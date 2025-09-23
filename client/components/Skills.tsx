@@ -28,7 +28,7 @@ const formatDate = (dateString: string) => {
 function SkillsComponent() {
   const queryClient = useQueryClient()
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3000')
+    const ws = new WebSocket('wss://insightstack-s9md.onrender.com')
 
     ws.onopen = () => {
       console.log('WebSocket connected')

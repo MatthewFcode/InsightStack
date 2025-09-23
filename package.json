@@ -21,7 +21,6 @@
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "render:build": "npm install && npm run build && npm prune --omit=dev && NODE_ENV='production' npm run knex migrate:latest",
     "render:start": "node dist/server.js"
-
   },
   "eslintConfig": {
     "extends": "@devacademy/eslint-config/react",
