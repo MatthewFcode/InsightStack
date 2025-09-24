@@ -63,6 +63,7 @@ function Tech() {
   const [editTopic, setEditTopic] = useState('')
   const [editDetails, setEditDetails] = useState('')
   const { isAuthenticated, user } = useAuth0()
+
   const { data, isLoading, isError } = useGetPosts()
 
   if (isLoading) {
