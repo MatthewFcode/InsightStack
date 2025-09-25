@@ -4,10 +4,10 @@
  */
 export async function seed(knex) {
   await knex('favourite_language_votes').del()
-  await knex('favourite_language').truncate()
+  await knex('favourite_language').del()
   await knex('least_favourite_language_votes').del()
-  await knex('least_favourite_language').truncate()
-  await knex('posts').truncate()
-  await knex('skills').truncate()
-  await knex('users').truncate()
+  await knex('least_favourite_language').del()
+  await knex('posts').del()
+  await knex('skills').del()
+  await knex('users').del()
 }
