@@ -8,7 +8,7 @@ export async function up(knex) {
     table.string('username').unique().notNullable()
     table.string('email').unique().notNullable()
     table.string('current_position')
-    table.string('about_me', 50).notNullable()
+    table.string('about_me').notNullable()
     table.string('profile_photo_url')
     table.string('created_at').defaultTo(knex.fn.now())
     table.string('location')
