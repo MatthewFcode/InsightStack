@@ -61,6 +61,8 @@ router.post(
         profilePhotoUrl = `/images/${req.file.filename}`
       }
 
+      console.log(profilePhotoUrl)
+
       const user = {
         auth0Id: auth0Id as string,
         username: req.body.username,
