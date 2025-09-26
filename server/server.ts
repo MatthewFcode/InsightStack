@@ -16,7 +16,7 @@ const wss = new WebSocketServer({ server })
 
 app.use(express.json())
 
-//app.use(express.static(Path.resolve('public')))
+app.use('/uploads', express.static(Path.resolve('./uploads')))
 
 app.use('/api/v1/posts', newPostRoutes)
 app.use('/api/v1/skills', skillRoutes)

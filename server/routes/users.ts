@@ -7,7 +7,7 @@ const router = Router()
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.resolve('public/images'))
+    cb(null, path.resolve('uploads'))
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
@@ -58,7 +58,7 @@ router.post(
       let profilePhotoUrl = ''
       if (req.file) {
         // Store the relative path to the uploaded file
-        profilePhotoUrl = `/images/${req.file.filename}`
+        profilePhotoUrl = `/uploads/${req.file.filename}`
       }
 
       console.log(profilePhotoUrl)
