@@ -12,6 +12,7 @@ export async function getLeastFavouriteLanguages(): Promise<
     const result = await db('least_favourite_language').select(
       'id',
       'least_favourite_language as language',
+      'image',
     )
     return result
   } catch (err) {

@@ -2,32 +2,65 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-// export async function seed(knex) {
-//   await knex('favourite_language').insert([
-//     { language: 'HTML' },
-//     { language: 'CSS' },
-//     { language: 'JavaScript' },
-//     { language: 'TypeScript' },
-//     { language: 'Python' },
-//     { language: 'SQL' },
-//     { language: 'React' },
-//     { language: 'Express.js' },
-//     { language: 'C#' },
-//     { language: 'Golang' },
-//   ])
-// }
 
 export async function seed(knex) {
   await knex('favourite_language').insert([
-    { id: 1, language: 'HTML' },
-    { id: 2, language: 'CSS' },
-    { id: 3, language: 'JavaScript' },
-    { id: 4, language: 'TypeScript' },
-    { id: 5, language: 'Python' },
-    { id: 6, language: 'SQL' },
-    { id: 7, language: 'React' },
-    { id: 8, language: 'Express.js' },
-    { id: 9, language: 'C#' },
-    { id: 10, language: 'Golang' },
+    {
+      id: 1,
+      language: 'HTML',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/250px-HTML5_logo_and_wordmark.svg.png',
+    },
+    {
+      id: 2,
+      language: 'CSS',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1452px-CSS3_logo_and_wordmark.svg.png',
+    },
+    {
+      id: 3,
+      language: 'JavaScript',
+      image: 'https://skillforge.com/wp-content/uploads/2020/10/javascript.png',
+    },
+    {
+      id: 4,
+      language: 'TypeScript',
+      image: 'https://malcoded.com/_astro/Typescript.ApdKzZht_vchHI.webp',
+    },
+    {
+      id: 5,
+      language: 'Python',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png',
+    },
+    {
+      id: 6,
+      language: 'SQL',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png',
+    },
+    {
+      id: 7,
+      language: 'React.js',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/862px-React-icon.svg.png',
+    },
+    {
+      id: 8,
+      language: 'Express.js',
+      image:
+        'https://www.khanwaseem.com/_next/image?url=https%3A%2F%2Fblogwordpressmedia.s3.amazonaws.com%2Fuploads%2F2023%2F01%2F27083940%2Fexpress.png&w=3840&q=75',
+    },
+    {
+      id: 9,
+      language: 'C#',
+      image: 'https://www.jetbrains.com/guide/assets/csharp-logo-265a149e.svg',
+    },
+    {
+      id: 10,
+      language: 'Golang',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/1200px-Go_Logo_Blue.svg.png',
+    },
   ])
 }
