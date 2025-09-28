@@ -8,59 +8,52 @@ export async function seed(knex) {
     {
       id: 1,
       language: 'HTML',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/250px-HTML5_logo_and_wordmark.svg.png',
+      image: '../../../public/images/Html.png',
     },
     {
       id: 2,
       language: 'CSS',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1452px-CSS3_logo_and_wordmark.svg.png',
+      image: '../../../public/images/Css.png',
     },
     {
       id: 3,
       language: 'JavaScript',
-      image: 'https://skillforge.com/wp-content/uploads/2020/10/javascript.png',
+      image: '../../../public/images/Js.png',
     },
     {
       id: 4,
       language: 'TypeScript',
-      image: 'https://malcoded.com/_astro/Typescript.ApdKzZht_vchHI.webp',
+      image: '../../../public/images/TypeScript.png',
     },
     {
       id: 5,
       language: 'Python',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png',
+      image: '../../../public/images/Python.png',
     },
     {
       id: 6,
       language: 'SQL',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png',
+      image: '../../../public/images/Sql.png',
     },
     {
       id: 7,
       language: 'React.js',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/862px-React-icon.svg.png',
+      image: '../../../public/images/React.png',
     },
     {
       id: 8,
       language: 'Express.js',
-      image:
-        'https://www.khanwaseem.com/_next/image?url=https%3A%2F%2Fblogwordpressmedia.s3.amazonaws.com%2Fuploads%2F2023%2F01%2F27083940%2Fexpress.png&w=3840&q=75',
+      image: '../../../public/images/expressjs.svg',
     },
     {
       id: 9,
       language: 'C#',
-      image: 'https://www.jetbrains.com/guide/assets/csharp-logo-265a149e.svg',
+      image: '../../../public/images/C.svg',
     },
     {
       id: 10,
       language: 'Golang',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/1200px-Go_Logo_Blue.svg.png',
+      image: '../../../public/images/Golang.png',
     },
   ])
 }

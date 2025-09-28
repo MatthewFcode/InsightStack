@@ -65,7 +65,7 @@ function FavLang() {
                   onChange={handleChange}
                 />
                 <div className="option-content">
-                  {language.image}
+                  <img src={language.image} alt={language.language} />
                   {language.language}
                 </div>
               </label>
