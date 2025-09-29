@@ -2209,6 +2209,49 @@ body.home-page .registration-panel {
 }
 
 
+
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+  button, .nav-link, .vote-option-label {
+    min-height: 44px; /* iOS recommended touch target */
+    min-width: 44px;
+  }
+  
+  /* Larger touch targets for arrows */
+  .slider-container button {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+  }
+}
+
+/* Landscape mobile adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+  .vote-card {
+    padding: 15px;
+  }
+  
+  .vote-options-container {
+    gap: 12px;
+  }
+  
+  .bar-container {
+    height: 100px; /* Shorter for landscape */
+  }
+}
+// mobile loading state
+@media (max-width: 768px) {
+  .loading-overlay {
+    padding: 20px;
+  }
+  
+  .loading-text {
+    font-size: 0.9rem;
+  }
+}
+
+
 // Responsivness 
 .mobile-dots {
   bottom: -50px !important;

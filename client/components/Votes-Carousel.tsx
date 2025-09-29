@@ -184,26 +184,10 @@ function Carousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    prevArrow: <PrevArrow />, // Fixed typo: was "prevSlider"
-    nextArrow: <NextArrow />, // Fixed typo: was "nextSlider"
-    dots: true, // Add dots for mobile navigation
-    dotsClass: 'slick-dots mobile-dots',
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          dots: true,
-          arrows: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          dots: true,
-          arrows: true,
-        },
-      },
-    ],
+
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+
   }
 
   return (
