@@ -874,16 +874,17 @@ button:not([type="submit"]):not(.btn-primary):not(.btn-danger) {
 }
 
 @media (max-width: 768px) {
-  .nav-container {
-    flex-direction: column;
-    gap: 16px;
-    padding: 12px 20px;
+  .nav-left {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    order: 1;
   }
   
-  .nav-left {
-    position: static;
-    transform: none;
-    order: 1;
+  .nav-center {
+    padding-right: 0 !important;
+    justify-content: center;
+    order: 2;
   }
   
   .nav-center {
@@ -896,12 +897,11 @@ button:not([type="submit"]):not(.btn-primary):not(.btn-danger) {
   }
   
   .page-content {
-    margin-left: 0;
-    padding: 0 20px;
+    margin-left: 0 !important;
   }
   
   .main-content {
-    margin-top: 140px;
+    margin-top: 120px;
   }
   
   .content-wrapper {
@@ -917,7 +917,24 @@ button:not([type="submit"]):not(.btn-primary):not(.btn-danger) {
   }
   
   .post-card {
-    padding: 24px;
+    padding: 16px !important;
+    margin-bottom: 16px;
+  }
+  
+  .post-author {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .center-user-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .separator {
+    display: none; /* Hide separators on mobile */
   }
   
   .post-actions, .edit-actions {
@@ -2064,11 +2081,12 @@ body.home-page .registration-panel {
 
 @media (max-width: 480px) {
   .welcome-content {
-    padding: 24px 20px;
+    padding: 20px 15px !important;
+    margin: 10px;
   }
   
   .welcome-content h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem !important;
   }
   
   .welcome-content h2 {
@@ -2076,7 +2094,7 @@ body.home-page .registration-panel {
   }
   
   .welcome-content p {
-    font-size: 0.95rem;
+    font-size: 0.9rem !important;
   }
 }
 
@@ -2233,7 +2251,7 @@ body.home-page .registration-panel {
   }
 }
 
-//HERE 
+
 // Responsivness 
 .mobile-dots {
   bottom: -50px !important;
@@ -2393,5 +2411,45 @@ body.home-page .registration-panel {
   .nav-center {
     padding-right: 0;
     justify-content: center;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+  button, .nav-link, .vote-option-label {
+    min-height: 44px; /* iOS recommended touch target */
+    min-width: 44px;
+  }
+  
+  /* Larger touch targets for arrows */
+  .slider-container button {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+  }
+}
+
+/* Landscape mobile adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+  .vote-card {
+    padding: 15px;
+  }
+  
+  .vote-options-container {
+    gap: 12px;
+  }
+  
+  .bar-container {
+    height: 100px; /* Shorter for landscape */
+  }
+}
+// mobile loading state
+@media (max-width: 768px) {
+  .loading-overlay {
+    padding: 20px;
+  }
+  
+  .loading-text {
+    font-size: 0.9rem;
   }
 }
