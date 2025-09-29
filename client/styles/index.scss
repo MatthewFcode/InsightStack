@@ -1024,8 +1024,21 @@ body.home-page .registration-panel {
   position: relative;
   left: 6.3rem;
   padding-bottom: 1.3rem;
+
+}
+
+.nonce {
+  font-size: 1.2rem;
+  color: var(--gray-600);
+  max-width: 500px;
+  margin: 0 auto 0 auto;
+  line-height: 1.8;
+  position: relative;
+  left: 6.3rem;
+  padding-bottom: 1.3rem;
   border-bottom:#1d4ed8 solid 2px;
 }
+
 /* Registration Page Full Styling */
 .registration-page {
   min-height: 100vh;
@@ -1700,7 +1713,6 @@ body.home-page .registration-panel {
   border: 1px solid var(--blue-200);
   text-align: center;
   width: 70rem;
-  margin-top: 2rem;
 }
 .slider-container {
   width: 70rem;
@@ -2177,3 +2189,4 @@ body.home-page .registration-panel {
     transform: translateY(0);
   }
 }
+
