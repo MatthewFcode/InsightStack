@@ -78,8 +78,8 @@ function Carousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    prevSlider: <PrevArrow />,
-    nextSlider: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
   }
 
   return (
