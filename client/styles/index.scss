@@ -874,16 +874,17 @@ button:not([type="submit"]):not(.btn-primary):not(.btn-danger) {
 }
 
 @media (max-width: 768px) {
-  .nav-container {
-    flex-direction: column;
-    gap: 16px;
-    padding: 12px 20px;
+  .nav-left {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    order: 1;
   }
   
-  .nav-left {
-    position: static;
-    transform: none;
-    order: 1;
+  .nav-center {
+    padding-right: 0 !important;
+    justify-content: center;
+    order: 2;
   }
   
   .nav-center {
@@ -896,12 +897,11 @@ button:not([type="submit"]):not(.btn-primary):not(.btn-danger) {
   }
   
   .page-content {
-    margin-left: 0;
-    padding: 0 20px;
+    margin-left: 0 !important;
   }
   
   .main-content {
-    margin-top: 140px;
+    margin-top: 120px;
   }
   
   .content-wrapper {
@@ -917,7 +917,24 @@ button:not([type="submit"]):not(.btn-primary):not(.btn-danger) {
   }
   
   .post-card {
-    padding: 24px;
+    padding: 16px !important;
+    margin-bottom: 16px;
+  }
+  
+  .post-author {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .center-user-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .separator {
+    display: none; /* Hide separators on mobile */
   }
   
   .post-actions, .edit-actions {
@@ -2064,11 +2081,12 @@ body.home-page .registration-panel {
 
 @media (max-width: 480px) {
   .welcome-content {
-    padding: 24px 20px;
+    padding: 20px 15px !important;
+    margin: 10px;
   }
   
   .welcome-content h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem !important;
   }
   
   .welcome-content h2 {
@@ -2076,7 +2094,7 @@ body.home-page .registration-panel {
   }
   
   .welcome-content p {
-    font-size: 0.95rem;
+    font-size: 0.9rem !important;
   }
 }
 
@@ -2190,3 +2208,205 @@ body.home-page .registration-panel {
   }
 }
 
+
+// Responsivness 
+.mobile-dots {
+  bottom: -50px !important;
+}
+.mobile-dots li button:before {
+  font-size: 12px !important;
+  color: #3b82f6 !important;
+  opacity: 0.5;
+}
+.mobile-dots li.slick-active button:before {
+  opacity: 1;
+  color: #1e40af !important;
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    width: 95% !important;
+    margin: 1rem auto 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-container {
+    width: 100% !important;
+    padding: 0 5px !important;
+  }
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Home page mobile fixes */
+  .home-container {
+    margin: 0;
+    padding: 0 20px;
+    max-width: 100%;
+  }
+  
+  .home-title {
+    position: static;
+    left: auto;
+    font-size: 2rem !important;
+  }
+  
+  .home-container p,
+  .nonce {
+    position: static;
+    left: auto;
+    max-width: 100%;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  /* Vote card mobile fixes */
+  .vote-card {
+    width: 100% !important;
+    max-width: 100%;
+    padding: 20px;
+    margin: 1rem 0;
+  }
+  
+  .vote-options-container {
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+  .vote-option-label {
+    min-width: 80px;
+    max-width: 100px;
+    padding: 16px 12px;
+  }
+  
+  .option-content img {
+    width: 40px !important;
+    height: 40px !important;
+    margin-bottom: 8px;
+  }
+  
+  .option-content {
+    font-size: 0.8rem;
+    min-height: 80px;
+  }
+  
+  /* Bar chart mobile fixes */
+  .vote-results-container {
+    gap: 16px;
+    padding: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .vote-bar-item {
+    width: 60px;
+  }
+  
+  .bar-container {
+    width: 40px;
+    height: 150px;
+  }
+  
+  .vote-info h3 {
+    font-size: 0.9rem;
+  }
+  
+  .vote-count {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Smaller mobile adjustments */
+  .home-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .vote-card {
+    padding: 15px;
+  }
+  
+  .vote-options-container {
+    gap: 12px;
+  }
+  
+  .vote-option-label {
+    min-width: 70px;
+    max-width: 90px;
+    padding: 12px 8px;
+  }
+  
+  .option-content img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  
+  .option-content {
+    font-size: 0.7rem;
+  }
+  
+  .vote-results-container {
+    gap: 12px;
+  }
+  
+  .vote-bar-item {
+    width: 50px;
+  }
+  
+  .bar-container {
+    width: 35px;
+    height: 120px;
+  }
+  
+  /* Navigation mobile fixes */
+  .nav-container {
+    flex-direction: column;
+    padding: 12px 16px;
+  }
+  
+  .nav-center {
+    padding-right: 0;
+    justify-content: center;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+  button, .nav-link, .vote-option-label {
+    min-height: 44px; /* iOS recommended touch target */
+    min-width: 44px;
+  }
+  
+  /* Larger touch targets for arrows */
+  .slider-container button {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+  }
+}
+
+/* Landscape mobile adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+  .vote-card {
+    padding: 15px;
+  }
+  
+  .vote-options-container {
+    gap: 12px;
+  }
+  
+  .bar-container {
+    height: 100px; /* Shorter for landscape */
+  }
+}
+// mobile loading state
+@media (max-width: 768px) {
+  .loading-overlay {
+    padding: 20px;
+  }
+  
+  .loading-text {
+    font-size: 0.9rem;
+  }
+}
