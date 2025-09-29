@@ -50,18 +50,23 @@ function LeastFavLang() {
       <h2 className="edit-title">Least Used Programming Language</h2>
       {!hasVoted ? (
         <div className="vote-options-container">
-          {data?.map((language: { id: string; language: string }) => (
-            <label key={language.id} className="vote-option-label">
-              <input
-                type="radio"
-                name="language"
-                value={language.id}
-                checked={checked === language.id}
-                onChange={handleChange}
-              />
-              <div className="option-content">{language.language}</div>
-            </label>
-          ))}
+          {data?.map(
+            (language: { id: string; language: string; image: string }) => (
+              <label key={language.id} className="vote-option-label">
+                <input
+                  type="radio"
+                  name="language"
+                  value={language.id}
+                  checked={checked === language.id}
+                  onChange={handleChange}
+                />
+                <div className="option-content">
+                  <img src={language.image} alt={language.language} />
+                  {language.language}
+                </div>
+              </label>
+            ),
+          )}
         </div>
       ) : (
         <div>

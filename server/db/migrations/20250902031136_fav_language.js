@@ -6,6 +6,7 @@ export async function up(knex) {
   return knex.schema.createTable('favourite_language', (table) => {
     table.increments('id').primary()
     table.string('language')
+    table.string('image')
   })
 }
 /**
