@@ -74,7 +74,7 @@ router.post(
         location: req.body.location || '',
       }
       const [addedUser] = await db.createUser(user)
-      res.json({ user: addedUser })
+      res.status(201).json({ user: addedUser })
     } catch (err) {
       console.log('Error creating user:', err)
       res.status(500).json({ error: 'Failed to create user' })

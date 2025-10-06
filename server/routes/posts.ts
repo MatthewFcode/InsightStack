@@ -44,7 +44,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
       }
     })
 
-    res.json(newPost)
+    res.status(201).json(newPost)
   } catch (err) {
     console.log(err)
     res.send(400).json({ message: 'something went wrong' })

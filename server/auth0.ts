@@ -8,17 +8,21 @@ import jwks from 'jwks-rsa'
 const domain = 'https://matthew-matai-2025.au.auth0.com'
 const audience = 'https://insightstack/api'
 
-const checkJwt = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `${domain}/.well-known/jwks.json`,
-  }) as GetVerificationKey,
-  audience: audience,
-  issuer: `${domain}/`,
-  algorithms: ['RS256'],
-})
+const isTest = process.env.NODE_ENV
+
+const checkJwt = isTest
+  ? jwt({ secret: 'test-secret', algorithms: ['HS256'] })
+  : jwt({
+      secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: `${domain}/.well-known/jwks.json`,
+      }) as GetVerificationKey,
+      audience: audience,
+      issuer: `${domain}/`,
+      algorithms: ['RS256'],
+    })
 
 export default checkJwt
 
