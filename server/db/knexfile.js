@@ -20,7 +20,8 @@ export default {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: ':memory:',
+      //filename: ':memory:',
+      filename: Path.join(__dirname, 'test.sqlite'),
     },
     migrations: {
       directory: Path.join(__dirname, 'migrations'),
