@@ -27,11 +27,12 @@ jobs:
 
       # 4. Prepare SQLite test database
       - name: Setup SQLite test DB
+        working-directory: ./server/db
         run: |
-          mkdir -p ./server/db
-          rm -f ./server/db/test.sqlite
-          npx knex migrate:latest --knexfile ./server/db/knexfile.js --env test
-          npx knex seed:run --knexfile ./server/db/knexfile.js --env test
+         rm -f test.sqlite
+         npx knex migrate:latest --env test
+         npx knex seed:run --env test
+
 
 
       # 5. Run tests
