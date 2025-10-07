@@ -32,12 +32,12 @@ jobs:
       #     npx knex migrate:latest --env test
       #     npx knex seed:run --env test
       - name: Setup SQLite test DB
-  working-directory: ./server
-  run: |
-    mkdir -p ./db
-    rm -f ./db/test.sqlite
-    npx knex migrate:latest --env test
-    npx knex seed:run --env test
+        working-directory: ./server
+        run: |
+          mkdir -p ./db
+          rm -f ./db/test.sqlite
+          npx knex migrate:latest --env test
+          npx knex seed:run --env test
 
 
       # 5. Run tests
