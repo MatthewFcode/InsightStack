@@ -1,5 +1,7 @@
 # 💡 InsightStack
 
+![Node.js CI](https://github.com/username/repo/actions/workflows/nodejs-ci.yml/badge.svg)
+
 **InsightStack** is a web app that serves as an advice hub for developers. It helps you grow in two key areas of your career:
 
 - **💻 Technical Skills** – coding, tools, architecture, debugging, and more  
@@ -15,5 +17,6 @@ Whether you're stuck on a bug or navigating a tricky team dynamic, InsightStack 
 - Read curated insights and tips contributed by the community  
 - Search by topic  
 - Share your own insights and experiences
+- Backend integration test automation
 
 ---
