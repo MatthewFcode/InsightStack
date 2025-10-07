@@ -109,3 +109,82 @@ describe('Creating a skills post', () => {
     })
   })
 })
+
+describe('Editing a skills post', () => {
+  it('succesful update on the skills posts routes', async () => {
+    await db('users').insert([
+      {
+        auth0Id: testUserId,
+        username: 'Willa',
+        email: 'willa.liu2@gmail.com',
+        current_position: 'Uni Student',
+        about_me: 'I love teeth and dentistry',
+        profile_photo_url: '',
+        location: 'Dunedin',
+      },
+    ])
+    const [postId] = await db('skills').insert([
+      {
+        skills_topic: 'Knex.js',
+        skills_details:
+          'use .truncate() instead of .del() to reset auto incrementing ids',
+        skills_added_by_user: 'Willa',
+        skills_auth0Id: testUserId,
+        skills_created_at: '',
+      },
+    ])
+
+    const updatedData = {
+      skillsTopic: 'Updated',
+      skillsDetails: 'This was updated by Willa',
+    }
+    const result = await request(server)
+      .patch(`/api/v1/skills/${postId}`)
+      .set('Authorization', `Bearer ${mockjwt}`)
+      .send(updatedData)
+
+    expect(result.status).toBe(StatusCodes.OK)
+
+    expect(result.body[0]).toMatchObject({
+      id: postId,
+      skills_topic: 'Updated',
+      skills_details: 'This was updated by Willa',
+      username: 'Willa',
+      current_position: 'Uni Student',
+      profile_photo_url: expect.any(String),
+      skills_created_at: expect.any(String),
+    })
+  })
+})
+
+describe('Deleting a skills post', () => {
+  it('deletes the skills post from the database by the id', async () => {
+    await db('users').insert([
+      {
+        auth0Id: testUserId,
+        username: 'Willa',
+        email: 'willa.liu2@gmail.com',
+        current_position: 'Uni Student',
+        about_me: 'I love teeth and dentistry',
+        profile_photo_url: '',
+        location: 'Dunedin',
+      },
+    ])
+
+    const [postId] = await db('skills').insert([
+      {
+        skills_topic: 'Knex.js',
+        skills_details:
+          'use .truncate() instead of .del() to reset auto incrementing ids',
+        skills_added_by_user: 'Willa',
+        skills_auth0Id: testUserId,
+        skills_created_at: '',
+      },
+    ])
+    const result = await request(server)
+      .delete(`/api/v1/skills/${postId}`)
+      .set('Authorization', `Bearer ${mockjwt}`)
+
+    expect(result.status).toBe(StatusCodes.NO_CONTENT)
+  })
+})
