@@ -1,6 +1,6 @@
 # 💡 InsightStack
 
-![Node.js CI](https://github.com/username/repo/actions/workflows/nodejs-ci.yml/badge.svg)
+![Node.js CI](https://github.com/MatthewFcode/InsightStack/actions/workflows/nodejs-ci.yml/badge.svg)
 
 **InsightStack** is a web app that serves as an advice hub for developers. It helps you grow in two key areas of your career:
 
