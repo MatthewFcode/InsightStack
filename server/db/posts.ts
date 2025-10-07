@@ -50,11 +50,11 @@ export async function updatePost(
     // select the post by the post id and where the auth0Id matches
     await db('posts')
       .where('posts.id', id)
-      .andWhere('posts.posts_auth0Id', auth0Id)
+      .andWhere('posts.post_auth0Id', auth0Id)
       .update(updatedPost)
     // return the update post
     const result = await db('posts')
-      .join('users', 'posts.posts_auth0Id', 'users.auth0Id')
+      .join('users', 'posts.post_auth0Id', 'users.auth0Id')
       .where('posts.id', id)
       .select(
         'posts.id',

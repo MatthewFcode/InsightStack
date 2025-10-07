@@ -41,7 +41,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
       }
     })
 
-    res.json(result)
+    res.status(201).json(result)
   } catch (err) {
     console.log('Whoops', err)
   }

@@ -157,22 +157,34 @@ describe('Editing a tech post', () => {
   })
 })
 
-// describe('Deleting a tech post', () => {
-//   it('deletes the tech post from the database by the id', async () => {
-//     const [postId] = await db('posts').insert([
-//       {
-//         topic: 'Knex.js',
-//         posts_details:
-//           'use .truncate() instead of .del() to reset auto incrementing ids',
-//         added_by_user: 'Willa',
-//         post_auth0Id: 'auth0|test-user-id',
-//         post_created_at: '',
-//       },
-//     ])
-//     const result = await request(server)
-//       .delete(`/api/v1/posts/${postId}`)
-//       .set('Authorization', `Bearer ${mockjwt}`)
+describe('Deleting a tech post', () => {
+  it('deletes the tech post from the database by the id', async () => {
+    await db('users').insert([
+      {
+        auth0Id: testUserId,
+        username: 'Willa',
+        email: 'willa.liu2@gmail.com',
+        current_position: 'Uni Student',
+        about_me: 'I love teeth and dentistry',
+        profile_photo_url: '',
+        location: 'Dunedin',
+      },
+    ])
 
-//     expect(result.status).toBe(StatusCodes.NO_CONTENT)
-//   })
-// })
+    const [postId] = await db('posts').insert([
+      {
+        topic: 'Knex.js',
+        posts_details:
+          'use .truncate() instead of .del() to reset auto incrementing ids',
+        added_by_user: 'Willa',
+        post_auth0Id: testUserId,
+        post_created_at: '',
+      },
+    ])
+    const result = await request(server)
+      .delete(`/api/v1/posts/${postId}`)
+      .set('Authorization', `Bearer ${mockjwt}`)
+
+    expect(result.status).toBe(StatusCodes.NO_CONTENT)
+  })
+})
