@@ -6,7 +6,7 @@ const router = Router()
 router.get('/', async (req, res) => {
   try {
     const result = await db.getLeastFavouriteLanguages()
-    res.json(result)
+    res.status(200).json(result)
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: 'Internal Server Error' })
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.get('/least-fav-votes', async (req, res) => {
   try {
     const result = await db.getLeastFavouriteLanguageVotes()
-    res.json(result)
+    res.status(200).json(result)
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: 'Internal Server Error' })
@@ -29,7 +29,7 @@ router.post('/:id', async (req, res) => {
   try {
     const id = req.params.id
     const result = await db.addLeastFavouriteLanguageVote(id)
-    res.json({ result })
+    res.status(201).json({ result })
   } catch (err) {
     console.log(err)
     res.status(400).json({ message: 'bad post request' })

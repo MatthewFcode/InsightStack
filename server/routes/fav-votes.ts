@@ -8,7 +8,7 @@ const router = Router()
 router.get('/', async (req, res) => {
   try {
     const getLanguages = await db.getFavouriteLanguages()
-    res.json(getLanguages)
+    res.status(200).json(getLanguages)
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: 'Internal Server Error' })
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 router.get('/fav-votes', async (req, res) => {
   try {
     const getVotes = await db.getFavouriteLanguageVotes()
-    res.json(getVotes)
+    res.status(200).json(getVotes)
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: 'Internal Server Error' })
@@ -32,7 +32,7 @@ router.post('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     const postedVote = await db.addFavouriteLanguageVote(id)
-    res.json({ postedVote })
+    res.status(201).json({ postedVote })
   } catch (err) {
     console.log(err)
     res.status(400).json({ message: 'Bad Post Request' })

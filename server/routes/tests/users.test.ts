@@ -10,7 +10,7 @@ const db = connection
 const testUserId = 'auth0|test-user-id'
 
 // creating a fake jwt token just how auth0 issues them when users are logged in
-export const mockjwt = jwt.sign(
+const mockjwt = jwt.sign(
   // creates a signed token
   {
     // payload containing identity data
@@ -39,6 +39,17 @@ afterAll(async () => {
 
 describe('gets a user by Id', () => {
   it('returns the user logged in by their 0auth id', async () => {
+    await db('users').insert([
+      {
+        auth0Id: testUserId,
+        username: 'Willa',
+        email: 'willa.liu2@gmail.com',
+        current_position: 'Uni Student',
+        about_me: 'I love teeth and dentistry',
+        profile_photo_url: '',
+        location: 'Dunedin',
+      },
+    ])
     const response = await request(server)
       .get('/api/v1/users')
       .set('Authorization', `Bearer ${mockjwt}`)
@@ -51,7 +62,7 @@ describe('gets a user by Id', () => {
       current_position: 'Uni Student',
       about_me: 'I love teeth and dentistry',
       profile_photo_url: '',
-      created_at: '',
+      created_at: expect.any(String),
       location: 'Dunedin',
     })
   })

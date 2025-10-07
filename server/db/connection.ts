@@ -20,4 +20,5 @@ const env = (process.env.NODE_ENV as Environment) || 'development'
 
 const connection = knex(config[env])
 
+console.log('Knex environment', env)
 export default connection
