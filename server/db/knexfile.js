@@ -38,7 +38,7 @@ export default {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: './storage/data.sqlite',
+      filename: '/app/storage/data.sqlite',
     },
     pool: {
       min: 2,
