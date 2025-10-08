@@ -33,16 +33,9 @@ app.use('/api/v1/least-fav-languages', leastFavRoutes)
 // }
 
 if (process.env.NODE_ENV === 'production') {
-  const distPath = Path.join(process.cwd(), 'dist')
-  const publicPath = Path.join(process.cwd(), 'public')
-
-  // Serve static files from dist (frontend build)
+  const distPath = Path.resolve('./dist')
   app.use(express.static(distPath))
-
-  // Serve static assets from public folder
-  app.use('/uploads', express.static(publicPath))
-
-  // Catch-all route for frontend routing
+  app.use('/assets', express.static(Path.join(distPath, 'assets')))
   app.get('*', (req, res) => {
     res.sendFile(Path.join(distPath, 'index.html'))
   })
