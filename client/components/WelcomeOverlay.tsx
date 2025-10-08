@@ -1,14 +1,8 @@
-import { useEffect } from 'react'
-
 interface WelcomeOverlayProps {
   onClose: () => void
 }
 
 function WelcomeOverlay({ onClose }: WelcomeOverlayProps) {
-  useEffect(() => {
-    localStorage.setItem('hasVisited', 'true')
-  }, [])
-
   const handleContinue = () => {
     onClose()
   }

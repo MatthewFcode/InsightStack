@@ -12,10 +12,7 @@ function App() {
 
   useEffect(() => {
     if (isHomePage) {
-      const hasVisited = localStorage.getItem('hasVisited')
-      if (!hasVisited) {
-        setShowOverlay(true)
-      }
+      setShowOverlay(true)
     }
   }, [isHomePage])
 
