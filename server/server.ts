@@ -24,11 +24,27 @@ app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/fav-languages', favRoutes)
 app.use('/api/v1/least-fav-languages', leastFavRoutes)
 
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(Path.resolve('public')))
+//   app.use('/assets', express.static(Path.resolve('./dist/assets')))
+//   app.get('*', (req, res) => {
+//     res.sendFile(Path.resolve('./dist/index.html'))
+//   })
+// }
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(Path.resolve('public')))
-  app.use('/assets', express.static(Path.resolve('./dist/assets')))
+  const distPath = Path.join(process.cwd(), 'dist')
+  const publicPath = Path.join(process.cwd(), 'public')
+
+  // Serve static files from dist (frontend build)
+  app.use(express.static(distPath))
+
+  // Serve static assets from public folder
+  app.use('/uploads', express.static(publicPath))
+
+  // Catch-all route for frontend routing
   app.get('*', (req, res) => {
-    res.sendFile(Path.resolve('./dist/index.html'))
+    res.sendFile(Path.join(distPath, 'index.html'))
   })
 }
 
