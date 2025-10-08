@@ -33,14 +33,12 @@ app.use('/api/v1/least-fav-languages', leastFavRoutes)
 // }
 
 if (process.env.NODE_ENV === 'production') {
-  const distPath = Path.resolve('./dist')
-  app.use(express.static(distPath))
-  app.use('/assets', express.static(Path.join(distPath, 'assets')))
+  app.use(express.static(Path.resolve('public')))
+  app.use('/assets', express.static(Path.resolve('./dist/assets')))
   app.get('*', (req, res) => {
-    res.sendFile(Path.join(distPath, 'index.html'))
+    res.sendFile(Path.resolve('./dist/index.html'))
   })
 }
-
 // WebSocket server setup
 
 wss.on('connection', (ws) => {
