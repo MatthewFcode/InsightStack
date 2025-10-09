@@ -1,9 +1,3 @@
-// export interface Post {
-//   id?: number | string
-//   topic: string
-//   post_details: string
-// }
-
 export interface Post {
   id: number
   topic: string

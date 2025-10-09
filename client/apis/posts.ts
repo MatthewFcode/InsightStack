@@ -1,7 +1,10 @@
 import request from 'superagent'
 import { Post } from '../../models/posts.ts'
 
-const rootURL = new URL(`/api/v1`, document.baseURI)
+const rootURL =
+  typeof document !== 'undefined'
+    ? new URL(`/api/v1`, document.baseURI)
+    : 'http://localhost:3000/api/v1'
 
 export async function getPosts(): Promise<Post[] | undefined> {
   try {
