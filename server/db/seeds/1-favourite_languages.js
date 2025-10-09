@@ -8,7 +8,7 @@ export async function seed(knex) {
     {
       id: 1,
       language: 'HTML',
-      image: '../../../public/images/Html.png',
+      image: '/images/Html.png',
     },
     {
       id: 2,
