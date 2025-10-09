@@ -1,5 +1,5 @@
 import nock from 'nock'
-import { getPosts, addPosts, updatePosts, deletePosts } from '../apis/posts.ts'
+import { getPosts, addPosts, updatePosts, deletePosts } from './posts.ts'
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
 import { Post } from '../../models/posts.ts'
 
