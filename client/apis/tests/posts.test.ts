@@ -1,7 +1,7 @@
 import nock from 'nock'
-import { getPosts, addPosts, updatePosts, deletePosts } from './posts.ts'
+import { getPosts, addPosts, updatePosts, deletePosts } from '../posts.ts'
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
-import { Post } from '../../models/posts.ts'
+import { Post } from '../../../models/posts.ts'
 
 // nock is a node.js library that intercepts HTTP requests and returns fake responses without the request ever leaving your machine
 beforeAll(() => {
