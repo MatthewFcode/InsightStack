@@ -57,6 +57,9 @@ export async function deletePosts(
     const deletePost = await request
       .delete(`${rootURL}/posts/${id}`)
       .set('Authorization', `Bearer ${token}`)
+    if (deletePost.status === 204) {
+      return undefined
+    }
     return deletePost.body
   } catch (err) {
     console.log(err)
