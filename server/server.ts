@@ -24,14 +24,6 @@ app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/fav-languages', favRoutes)
 app.use('/api/v1/least-fav-languages', leastFavRoutes)
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(Path.resolve('public')))
-//   app.use('/assets', express.static(Path.resolve('./dist/assets')))
-//   app.get('*', (req, res) => {
-//     res.sendFile(Path.resolve('./dist/index.html'))
-//   })
-// }
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(Path.resolve('public')))
   app.use('/assets', express.static(Path.resolve('./dist/assets')))
