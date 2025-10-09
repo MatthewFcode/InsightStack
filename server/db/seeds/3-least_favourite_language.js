@@ -8,52 +8,52 @@ export async function seed(knex) {
     {
       id: 1,
       least_favourite_language: 'HTML',
-      image: '../../../public/images/Html.png',
+      image: '/images/Html.png',
     },
     {
       id: 2,
       least_favourite_language: 'CSS',
-      image: '../../../public/images/Css.png',
+      image: '/images/Css.png',
     },
     {
       id: 3,
       least_favourite_language: 'JavaScript',
-      image: '../../../public/images/Js.png',
+      image: '/images/Js.png',
     },
     {
       id: 4,
       least_favourite_language: 'TypeScript',
-      image: '../../../public/images/TypeScript.png',
+      image: '/images/TypeScript.png',
     },
     {
       id: 5,
       least_favourite_language: 'Python',
-      image: '../../../public/images/Python.png',
+      image: '/images/Python.png',
     },
     {
       id: 6,
       least_favourite_language: 'SQL',
-      image: '../../../public/images/Sql.png',
+      image: '/images/Sql.png',
     },
     {
       id: 7,
       least_favourite_language: 'React.js',
-      image: '../../../public/images/React.png',
+      image: '/images/React.png',
     },
     {
       id: 8,
       least_favourite_language: 'Express.js',
-      image: '../../../public/images/expressjs.svg',
+      image: '/images/expressjs.svg',
     },
     {
       id: 9,
       least_favourite_language: 'C#',
-      image: '../../../public/images/C.svg',
+      image: '/images/C.svg',
     },
     {
       id: 10,
       least_favourite_language: 'Golang',
-      image: '../../../public/images/Golang.png',
+      image: '/images/Golang.png',
     },
   ])
 }

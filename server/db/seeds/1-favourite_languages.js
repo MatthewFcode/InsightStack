@@ -13,47 +13,47 @@ export async function seed(knex) {
     {
       id: 2,
       language: 'CSS',
-      image: '../../../public/images/Css.png',
+      image: '/images/Css.png',
     },
     {
       id: 3,
       language: 'JavaScript',
-      image: '../../../public/images/Js.png',
+      image: '/images/Js.png',
     },
     {
       id: 4,
       language: 'TypeScript',
-      image: '../../../public/images/TypeScript.png',
+      image: '/images/TypeScript.png',
     },
     {
       id: 5,
       language: 'Python',
-      image: '../../../public/images/Python.png',
+      image: '/images/Python.png',
     },
     {
       id: 6,
       language: 'SQL',
-      image: '../../../public/images/Sql.png',
+      image: '/images/Sql.png',
     },
     {
       id: 7,
       language: 'React.js',
-      image: '../../../public/images/React.png',
+      image: '/images/React.png',
     },
     {
       id: 8,
       language: 'Express.js',
-      image: '../../../public/images/expressjs.svg',
+      image: '/images/expressjs.svg',
     },
     {
       id: 9,
       language: 'C#',
-      image: '../../../public/images/C.svg',
+      image: '/images/C.svg',
     },
     {
       id: 10,
       language: 'Golang',
-      image: '../../../public/images/Golang.png',
+      image: '/images/Golang.png',
     },
   ])
 }
