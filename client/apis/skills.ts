@@ -1,7 +1,10 @@
 import request from 'superagent'
 import { Skills } from '../../models/skills.ts'
 
-const rootURL = new URL(`/api/v1`, document.baseURI)
+const rootURL =
+  typeof document !== 'undefined'
+    ? new URL(`/api/v1`, document.baseURI)
+    : 'http://localhost:3000/api/v1'
 
 export async function getSkillsPosts(): Promise<Skills[] | undefined> {
   try {
@@ -54,6 +57,9 @@ export async function deleteSkillsPost(
     const response = await request
       .delete(`${rootURL}/skills/${id}`)
       .set('Authorization', `Bearer ${token}`)
+    if (response.status === 204) {
+      return undefined
+    }
     return response.body
   } catch (err) {
     console.log('Whoops', err)
