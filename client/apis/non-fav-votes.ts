@@ -1,6 +1,9 @@
 import request from 'superagent'
 
-const rootURL = new URL(`/api/v1`, document.baseURI)
+const rootURL =
+  typeof document !== 'undefined'
+    ? new URL(`/api/v1`, document.baseURI)
+    : 'http://localhost:3000/api/v1'
 
 export async function getLeastFavLanguages() {
   const result = await request.get(`${rootURL}/least-fav-languages`)
