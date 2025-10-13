@@ -7,7 +7,12 @@ const router = Router()
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.resolve('uploads'))
+    //cb(null, path.resolve('uploads'))
+    const uploadDir =
+      process.env.NODE_ENV === 'production'
+        ? '/app/storage/uploads' // Dokku persistent storage
+        : path.resolve('uploads')
+    cb(null, uploadDir)
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)

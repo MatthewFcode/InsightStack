@@ -16,7 +16,12 @@ const wss = new WebSocketServer({ server })
 
 app.use(express.json())
 
-app.use('/uploads', express.static(Path.resolve('./uploads')))
+const uploadPath =
+  process.env.NODE_ENV === 'production'
+    ? '/app/storage/uploads'
+    : Path.resolve('./uploads')
+
+app.use('/uploads', express.static(uploadPath))
 
 app.use('/api/v1/posts', newPostRoutes)
 app.use('/api/v1/skills', skillRoutes)
