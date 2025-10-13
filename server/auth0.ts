@@ -8,7 +8,7 @@ import jwks from 'jwks-rsa'
 const domain = 'https://matthew-matai-2025.au.auth0.com'
 const audience = 'https://insightstack/api'
 
-const isTest = process.env.NODE_ENV
+const isTest = process.env.NODE_ENV === 'test'
 
 const checkJwt = isTest
   ? jwt({ secret: 'test-secret', algorithms: ['HS256'] })
