@@ -3,7 +3,6 @@ import checkJwt, { JwtRequest } from '../auth0'
 import * as db from '../db/users.ts'
 import multer from 'multer'
 import cloudinary from '../cloudinary.js'
-import path from 'path'
 import { unlink } from 'node:fs/promises'
 
 const router = Router()
