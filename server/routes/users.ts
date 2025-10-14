@@ -2,19 +2,31 @@ import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0'
 import * as db from '../db/users.ts'
 import multer from 'multer'
+// import { CloudinaryStorage } from 'multer-storage-cloudinary'
+import {v2 as cloudinary} from 'cloudinary'
 import path from 'path'
+import fs from 'fs'
+
 const router = Router()
+const upload = multer({ dest: 'tmp/' })
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.resolve('public/images'))
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`)
-  },
-})
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+    api_key: process.env.CLOUDINARY_API_KEY!,
+    api_secret: process.env.CLOUDINARY_API_SECRET!
+  })
 
-const upload = multer({ storage: storage })
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.resolve('public/images'))
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, `${Date.now()}-${file.originalname}`)
+//   },
+// })
+
+
+//const upload = multer({ storage: storage })
 // post and get
 // checkJwt checks for a valid token from the api client (middleware function )
 // get their own user back when they login (Jwt token) -- need one from front end
@@ -42,7 +54,13 @@ router.post(
       let profilePhotoUrl = ''
       if (req.file) {
         // Store the relative path to the uploaded file
-        profilePhotoUrl = `/images/${req.file.filename}`
+       // profilePhotoUrl = req.file?.path || '' // `/images/${req.file.filename}`
+       const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'insightstack_profiles',
+        transformation: [{ width: 300, height: 300, crop: 'fill' }],
+      })
+      profilePhotoUrl = result.secure_url
+      fs.unlinkSync(req.file.path)
       }
 
       console.log(profilePhotoUrl)
