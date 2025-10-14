@@ -2,6 +2,8 @@
 
 ![Node.js CI](https://github.com/MatthewFcode/InsightStack/actions/workflows/nodejs-sqlite-ci.yml/badge.svg)
 
+## Live URL -> https://insightstack.borb.nz/
+
 **InsightStack** is a web app that serves as an advice hub for developers. It helps you grow in two key areas of your career:
 
 - **💻 Technical Skills** – coding, tools, architecture, debugging, and more  
