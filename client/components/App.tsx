@@ -11,14 +11,14 @@ function App() {
   const isHomePage = location.pathname === '/'
 
   useEffect(() => {
-    if (isHomePage) {
+    if (isHomePage && !sessionStorage.getItem('hasVisited')) {
       setShowOverlay(true)
     }
   }, [isHomePage])
 
   const handleOverlayClose = () => {
     setShowOverlay(false)
-    localStorage.setItem('hasVisited', 'true')
+    sessionStorage.setItem('hasVisited', 'true')
   }
 
   return (
