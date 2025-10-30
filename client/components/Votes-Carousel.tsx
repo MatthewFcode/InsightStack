@@ -74,7 +74,7 @@ const NextArrow = ({ onClick }: CustomArrowProps) => (
 
 function Carousel() {
   const settings = {
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
