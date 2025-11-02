@@ -4,11 +4,41 @@ import Footer from './Footer'
 import Registration from './Account'
 import WelcomeOverlay from './WelcomeOverlay'
 import { Outlet, useLocation } from 'react-router'
+import { useQueryClient } from '@tanstack/react-query'
 
 function App() {
   const [showOverlay, setShowOverlay] = useState(false)
   const location = useLocation()
   const isHomePage = location.pathname === '/'
+
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    const ws = new WebSocket('wss://insightstack.borb.nz/')
+
+    ws.onopen = () => {
+      console.log('WebSocket connected')
+    }
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data)
+      if (data.type == 'database_change') {
+        queryClient.invalidateQueries({ queryKey: ['fav-lang-votes'] })
+        queryClient.invalidateQueries({ queryKey: ['least-fav-lang-votes'] })
+        queryClient.invalidateQueries({ queryKey: ['posts'] })
+        queryClient.invalidateQueries({ queryKey: ['skills'] })
+      }
+
+      ws.onclose = () => {
+        console.log('WebSocket closed')
+      }
+
+      ws.onerror = (error) => {
+        console.log('WebSocket error', error)
+      }
+      return () => ws.close()
+    }
+  }, [queryClient])
 
   useEffect(() => {
     if (isHomePage && !sessionStorage.getItem('hasVisited')) {
