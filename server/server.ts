@@ -7,7 +7,7 @@ import userRoutes from './routes/users.ts'
 import favRoutes from './routes/fav-votes.ts'
 import leastFavRoutes from './routes/non-fav-votes.ts'
 import path from 'path'
-
+import testingRoutes from './routes/testing.ts'
 import { createServer } from 'http'
 import { WebSocketServer } from 'ws'
 
@@ -23,6 +23,7 @@ app.use('/api/v1/skills', skillRoutes)
 app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/fav-languages', favRoutes)
 app.use('/api/v1/least-fav-languages', leastFavRoutes)
+app.use('/api/v1/testing', testingRoutes)
 app.use('/images', express.static(path.resolve('public/images')))
 
 if (process.env.NODE_ENV === 'production') {
