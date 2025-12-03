@@ -10,4 +10,5 @@ export async function seed(knex) {
   await knex('posts').del()
   await knex('skills').del()
   await knex('users').del()
+  await knex('testing').del()
 }
